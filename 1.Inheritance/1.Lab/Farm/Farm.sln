@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Farm", "Farm\Farm.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomRandomList", "CustomRandomList\CustomRandomList.csproj", "{B0B34412-D2D7-4263-9CEE-39FFF3148E26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomStack", "CustomStack\CustomStack.csproj", "{6F8B6309-E99C-4F88-92FC-6AE0C1ED452C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B0B34412-D2D7-4263-9CEE-39FFF3148E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0B34412-D2D7-4263-9CEE-39FFF3148E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0B34412-D2D7-4263-9CEE-39FFF3148E26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F8B6309-E99C-4F88-92FC-6AE0C1ED452C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F8B6309-E99C-4F88-92FC-6AE0C1ED452C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F8B6309-E99C-4F88-92FC-6AE0C1ED452C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F8B6309-E99C-4F88-92FC-6AE0C1ED452C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
