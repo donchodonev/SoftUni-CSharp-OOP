@@ -34,7 +34,7 @@ namespace PersonsInfo
         }
         public string LastName
         {
-            get => firstName;
+            get => lastName;
             set
             {
                 if (value.Length < 3)
