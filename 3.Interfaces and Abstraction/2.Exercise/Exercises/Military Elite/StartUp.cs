@@ -59,9 +59,17 @@ namespace Military
                         {
                             engExceptions.Add(inputArgs[i]);
                         }
-                        soldiers.Add
-                            (new Engineer
-                            (id, firstName, lastName, salary, corp, inputArgs.Except(engExceptions).ToArray()));
+                        try
+                        {
+                            soldiers.Add
+                                 (new Engineer
+                                 (id, firstName, lastName, salary, corp, inputArgs
+                                 .Except(engExceptions).ToArray()));
+                        }
+                        catch (Exception)
+                        {
+                        }
+
                         break;
                     case "Commando":
                         string corpCom = inputArgs[5];
@@ -72,9 +80,18 @@ namespace Military
                         {
                             comExceptions.Add(inputArgs[i]);
                         }
-                        soldiers.Add
-                            (new Commando
-                            (id, firstName, lastName, salary, corpCom, inputArgs.Except(comExceptions).ToArray()));
+
+                        try
+                        {
+                            soldiers.Add
+                             (new Commando
+                             (id, firstName, lastName, salary, corpCom, inputArgs
+                             .Except(comExceptions).ToArray()));
+                        }
+                        catch (Exception)
+                        {
+                        }
+
                         break;
                     case "Spy":
                         soldiers.Add(new Spy(id, firstName, lastName, Convert.ToInt32(salary)));
