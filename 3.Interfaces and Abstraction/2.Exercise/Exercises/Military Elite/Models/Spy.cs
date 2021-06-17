@@ -22,7 +22,7 @@ namespace Military.Models
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine($"Name {FirstName} {LastName} Id: {ID}");
+            sb.AppendLine($"Name: {FirstName} {LastName} Id: {ID}");
             sb.AppendLine($"Code Number: {CodeNumber}");
 
             return sb.ToString();
