@@ -51,5 +51,9 @@ namespace Military.Models
 
             return sb.ToString();
         }
+        private void CompleteMission()
+        {
+
+        }
     }
 }

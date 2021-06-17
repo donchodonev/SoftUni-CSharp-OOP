@@ -94,7 +94,8 @@ namespace Military
 
                         break;
                     case "Spy":
-                        soldiers.Add(new Spy(id, firstName, lastName, Convert.ToInt32(salary)));
+                        int code = int.Parse(inputArgs[4]);
+                        soldiers.Add(new Spy(id, firstName, lastName, code));
                         break;
                 }
 

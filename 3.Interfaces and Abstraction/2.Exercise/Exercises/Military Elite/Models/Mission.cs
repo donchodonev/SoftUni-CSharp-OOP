@@ -7,9 +7,9 @@ namespace Military.Models
     public class Mission
     {
         private string state;
-        public Mission(string codename, string state)
+        public Mission(string codeName, string state)
         {
-            Codename = codename;
+            Codename = codeName;
             State = state;
         }
         public string Codename { get; set; }
@@ -34,14 +34,11 @@ namespace Military.Models
             }
         }
 
-        private void CompleteMission()
-        {
-            state = "Finished";
-        }
-
         public override string ToString()
         {
-            return $"Code Name: {Codename} State: {State}";
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Code Name: {Codename} State: {State}");
+            return sb.ToString();
         }
     }
 }

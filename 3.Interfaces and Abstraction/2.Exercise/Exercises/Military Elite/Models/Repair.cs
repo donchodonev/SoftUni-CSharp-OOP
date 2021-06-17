@@ -6,17 +6,19 @@ namespace Military.Models
 {
     public class Repair
     {
-        public Repair(string part, double hoursWorked)
+        public Repair(string part, int hoursWorked)
         {
             Part = part;
             HoursWorked = hoursWorked;
         }
         public string Part { get; set; }
-        public double HoursWorked { get; set; }
+        public int HoursWorked { get; set; }
 
         public override string ToString()
         {
-            return $"Part Name: {Part} Hours Worked: {HoursWorked}";
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Part Name: {Part} Hours Worked: {HoursWorked}");
+            return sb.ToString().Trim();
         }
     }
 }
