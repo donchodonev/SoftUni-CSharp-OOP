@@ -19,7 +19,7 @@ namespace Military.Models
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine($"Name: {FirstName} {LastName} Id: {ID} Salary: {Salary}");
+            sb.AppendLine($"Name: {FirstName} {LastName} Id: {ID} Salary: {Salary:F2}");
             return sb.ToString();
         }
     }
