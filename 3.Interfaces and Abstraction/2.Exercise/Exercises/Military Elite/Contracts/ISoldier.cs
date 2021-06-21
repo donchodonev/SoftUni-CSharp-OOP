@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Military.Models;
-
-
-namespace Military.Contracts
+﻿namespace Military.Contracts
 {
     public interface ISoldier
     { 
-        public int ID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public int Id { get;}
+        public string FirstName { get;}
+        public string LastName { get;}
 
     }
 }
