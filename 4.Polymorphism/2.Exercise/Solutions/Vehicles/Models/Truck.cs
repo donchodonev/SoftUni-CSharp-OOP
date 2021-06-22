@@ -6,26 +6,14 @@ namespace Vehicles.Models
 {
     public class Truck : Vehicle
     {
-        private double fuelConsModifier = 1.6;
-        private double refuelModifier = 0.95;
-        public Truck(double fuelQuantity, double fuelConsumption)
-            : base(fuelQuantity, fuelConsumption)
+        public Truck(double fuelQuantity, double fuelConsumption, double tankCapacity, bool isAirConOn = true)
+            : base(fuelQuantity, fuelConsumption, tankCapacity, isAirConOn)
         {
-        }
-
-        public override string Drive(double distance)
-        {
-            if ((FuelConsumption + fuelConsModifier) * distance < FuelQuantity)
+            if (isAirConOn)
             {
-                FuelQuantity -= (FuelConsumption + fuelConsModifier) * distance;
-                return $"Truck travelled {distance} km";
+                FuelConsumptionModifier += 0.6;
             }
-            return "Truck needs refueling";
-        }
-
-        public override void Refuel(double fuel)
-        {
-            FuelQuantity += fuel * refuelModifier;
+            RefuelModifier = 0.95;
         }
     }
 }

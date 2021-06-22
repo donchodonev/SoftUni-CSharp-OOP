@@ -1,4 +1,5 @@
 ﻿using System;
+using Vehicles.Interfaces;
 using Vehicles.Models;
 
 namespace Vehicles
@@ -7,22 +8,43 @@ namespace Vehicles
     {
         public static void Main(string[] args)
         {
-            Vehicle car;
-            Vehicle truck;
+            Car car = null;
+            Truck truck = null;
+            Bus bus = null;
 
-            //car setup
+            for (int i = 0; i < 3; i++)
+            {
+                string[] vehicleParams = Console.ReadLine()
+                        .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                switch (vehicleParams[0])
+                {
+                    case "Car":
+                        car =
+                            new Car(
+                            double.Parse(vehicleParams[1]),
+                            double.Parse(vehicleParams[2]),
+                            double.Parse(vehicleParams[3]));
+                        break;
+                    case "Truck":
+                        truck =
+                            new Truck(
+                            double.Parse(vehicleParams[1]),
+                            double.Parse(vehicleParams[2]),
+                            double.Parse(vehicleParams[3]));
+                        break;
+                    case "Bus":
+                        bus =
+                            new Bus(
+                            double.Parse(vehicleParams[1]),
+                            double.Parse(vehicleParams[2]),
+                            double.Parse(vehicleParams[3]));
+                        break;
+                    default:
+                        break;
+                }
+            }
 
-            string[] carParams = Console.ReadLine()
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            car = new Car(double.Parse(carParams[1]), double.Parse(carParams[2]));
-
-            //truck setup
-
-            string[] truckParams = Console.ReadLine()
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            truck = new Truck(double.Parse(truckParams[1]), double.Parse(truckParams[2]));
+            //num of commands
 
             int n = int.Parse(Console.ReadLine());
 
@@ -38,7 +60,6 @@ namespace Vehicles
                 switch (driveOrRefuel)
                 {
                     case "Drive":
-
                         switch (vehicleType)
                         {
                             case "Car":
@@ -47,9 +68,21 @@ namespace Vehicles
                             case "Truck":
                                 Console.WriteLine(truck.Drive(distanceOrLiters));
                                 break;
+                            case "Bus":
+                                Console.WriteLine(bus.Drive(distanceOrLiters));
+                                break;
                         }
                         break;
-
+                        /////////
+                    case "DriveEmpty":
+                        switch (vehicleType)
+                        {
+                            case "Bus":
+                                Console.WriteLine(bus.DriveEmpty(distanceOrLiters));
+                                break;
+                        }
+                        break;
+                        /////////
                     case "Refuel":
                         switch (vehicleType)
                         {
@@ -59,6 +92,9 @@ namespace Vehicles
                             case "Truck":
                                 truck.Refuel(distanceOrLiters);
                                 break;
+                            case "Bus":
+                                bus.Refuel(distanceOrLiters);
+                                break;
                         }
                         break;
                 }
@@ -66,6 +102,7 @@ namespace Vehicles
 
             Console.WriteLine($"Car: {car.FuelQuantity:F2}");
             Console.WriteLine($"Truck: {truck.FuelQuantity:F2}");
+            Console.WriteLine($"Bus: {bus.FuelQuantity:F2}");
         }
     }
 }
