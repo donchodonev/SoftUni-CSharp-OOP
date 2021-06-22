@@ -28,9 +28,9 @@ namespace Vehicles.Models
             RefuelModifier = 1D;
             FuelConsumptionModifier = 1D;
         }
-        private double tankCapacity;
         private double fuelConsumption;
         public double FuelQuantity { get;protected set; }
+        protected double TankCapacity { get; set; }
         protected bool isAirConditionOn { get; set; }
         protected double FuelConsumption
         {
@@ -45,17 +45,6 @@ namespace Vehicles.Models
 
             set { fuelConsumption = value; }
         }
-
-
-        protected double TankCapacity
-        {
-            get => tankCapacity;
-            set 
-            { 
-                tankCapacity = value;
-            }
-        }
-
 
         //modifiers
         protected double RefuelModifier { get; set; }
@@ -77,7 +66,7 @@ namespace Vehicles.Models
 
         public virtual void Refuel(double fuel)
         {
-            if (fuel * RefuelModifier > tankCapacity - FuelQuantity)
+            if (fuel * RefuelModifier > TankCapacity - FuelQuantity)
             {
                 Console.WriteLine($"Cannot fit {fuel} fuel in the tank");
             }
