@@ -6,7 +6,13 @@ namespace Vehicles.Models
 {
     public abstract class Vehicle
     {
-        protected Vehicle(double fuelQuantity, double fuelConsumption, double tankCapacity, bool isAirConOn = true)
+        protected Vehicle
+            (
+            double fuelQuantity,
+            double fuelConsumption,
+            double tankCapacity,
+            bool isAirConOn = true
+            )
         {
             FuelQuantity = fuelQuantity;
             FuelConsumption = fuelConsumption;
