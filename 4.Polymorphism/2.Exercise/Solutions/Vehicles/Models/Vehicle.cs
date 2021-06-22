@@ -30,8 +30,7 @@ namespace Vehicles.Models
         }
         private double tankCapacity;
         private double fuelConsumption;
-
-        public double FuelQuantity { get; set; }
+        public double FuelQuantity { get;protected set; }
         protected bool isAirConditionOn { get; set; }
         protected double FuelConsumption
         {
