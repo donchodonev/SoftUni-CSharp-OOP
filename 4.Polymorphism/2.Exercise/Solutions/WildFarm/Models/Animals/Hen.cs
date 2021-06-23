@@ -19,6 +19,7 @@ namespace WildFarm.Models.Animals
         public override void Eat(Food food)
         {
             FoodEaten += food.Weight;
+            Weight += food.Weight * weightModifier;
         }
 
         public override void FeedMe()
