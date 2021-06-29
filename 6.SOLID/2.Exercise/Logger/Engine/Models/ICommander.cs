@@ -2,6 +2,7 @@
 using CustomLogger.Engine.Factories;
 using CustomLogger.Loggers.Models;
 using CustomLogger.LogParser.Interfaces;
+using CustomLogger.LogParser.Models;
 using CustomLogger.Misc;
 using System;
 using System.Collections.Generic;
@@ -70,7 +71,7 @@ namespace CustomLogger.Engine.Interfaces
 
         protected void StartLogging()
         {
-            ILogParser parser = new LogParser.Models.LogParser();
+            BaseParser parser = new LogParser.Models.LogParser();
 
             parser.Parse();
 
