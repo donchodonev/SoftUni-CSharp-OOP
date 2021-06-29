@@ -15,9 +15,9 @@ namespace CustomLogger.Engine.Factories
             ReportLevel = reportLevel;
         }
 
-        public ReportLevel ReportLevel { get; }
         private string AppenderName { get; }
         private string Layout { get; }
+        private ReportLevel ReportLevel { get; }
 
         public BaseAppender GetAppender()
         {
