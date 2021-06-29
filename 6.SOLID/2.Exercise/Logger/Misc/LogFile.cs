@@ -5,7 +5,7 @@ namespace CustomLogger.Misc
 {
     public class LogFile : ILogFile
     {
-        public StringBuilder Log { get; set; } = new StringBuilder();
+        public StringBuilder Log { get; } = new StringBuilder();
 
         public int Size
         {

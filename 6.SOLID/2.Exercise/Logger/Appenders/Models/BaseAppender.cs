@@ -22,6 +22,7 @@ namespace CustomLogger.Appenders.Interfaces
             if (OutputText.msgType >= ReportLevel)
             {
                 LogFile.Write(string.Format(Layout.LayoutFormat, OutputText.date, OutputText.msgType, OutputText.text));
+                MessagesAppended++;
             }
         }
 
