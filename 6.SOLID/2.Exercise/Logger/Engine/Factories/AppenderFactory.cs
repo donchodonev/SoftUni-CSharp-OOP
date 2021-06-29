@@ -32,6 +32,10 @@ namespace CustomLogger.Engine.Factories
                     appender = new ConsoleAppender(GetLayout());
                     appender.ReportLevel = ReportLevel;
                     break;
+                case "FileAppender":
+                    appender = new FileAppender(GetLayout());
+                    appender.ReportLevel = ReportLevel;
+                    break;
             }
 
             return appender;

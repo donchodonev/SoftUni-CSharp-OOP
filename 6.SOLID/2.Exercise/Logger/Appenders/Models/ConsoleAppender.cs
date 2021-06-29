@@ -12,7 +12,6 @@ namespace CustomLogger.Appenders.Models
         public ConsoleAppender(ILayout layout)
         {
             Layout = layout;
-            ReportLevel = ReportLevel.Info;
         }
 
         public ILayout Layout { get; }

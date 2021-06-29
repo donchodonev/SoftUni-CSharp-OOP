@@ -1,9 +1,10 @@
 ﻿using CustomLogger.Appenders.Interfaces;
 using CustomLogger.Engine.Factories;
-using CustomLogger.Layouts.Interfaces;
 using CustomLogger.Loggers.Interfaces;
 using CustomLogger.Loggers.Models;
 using CustomLogger.Misc;
+using CustomLogger.LogParser.Models;
+using CustomLogger.LogParser.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,49 +13,89 @@ namespace CustomLogger.Engine.Interfaces
 {
     public abstract class ICommander
     {
-        private List<IAppender> appenders;
-        private string appenderType;
-        private string layoutType;
-        private ILogger logger;
-        private ReportLevel reportLevel;
-        private int NumberOfAppenders => int.Parse(Console.ReadLine());
+        protected List<IAppender> Appenders { get; set; } = new List<IAppender>();
+        protected string AppenderType { get; set; }
+        protected string LayoutType { get; set; }
+        protected ILogger Logger { get; set; }
+        protected int NumberOfAppenders { get; set; }
+        protected ReportLevel ReportLevel { get; set; }
 
         public virtual void Run()
         {
+            NumberOfAppenders = int.Parse(Console.ReadLine());
+
             for (int i = 0; i < NumberOfAppenders; i++)
             {
                 ReadAppenderData();
                 CreateAppender();
             }
+
+            CreateLogger();
+            StartLogging();
         }
 
-        private void CreateAppender()
+        protected virtual void CreateAppender()
         {
-            AppenderFactory appenderFactory = new AppenderFactory(layoutType, appenderType, reportLevel);
+            AppenderFactory appenderFactory = new AppenderFactory(LayoutType, AppenderType, ReportLevel);
 
-            appenders.Add(appenderFactory.GetAppender());
+            Appenders.Add(appenderFactory.GetAppender());
         }
 
-        private void CreateLogger()
+        protected virtual void CreateLogger()
         {
-            logger = new Logger();
+            Logger = new Logger(Appenders.ToArray());
         }
 
-        private void ReadAppenderData()
+        protected virtual void ReadAppenderData()
         {
             string[] inputArgs = Console.ReadLine()
                  .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            this.appenderType = inputArgs[0];
-            this.layoutType = inputArgs[1];
+            AppenderType = inputArgs[0];
+            LayoutType = inputArgs[1];
 
             if (inputArgs.Length == 3)
             {
-                this.reportLevel = (ReportLevel)Enum.Parse(typeof(ReportLevel), inputArgs[2], true);
+                ReportLevel = (ReportLevel)Enum.Parse(typeof(ReportLevel), inputArgs[2], true);
             }
             else
             {
-                this.reportLevel = ReportLevel.Info;
+                ReportLevel = ReportLevel.Info;
+            }
+        }
+
+        protected void StartLogging()
+        {
+            ILogParser parser = new LogParser.Models.LogParser();
+
+            parser.Parse();
+
+            while (!parser.IsDone())
+            {
+                switch (parser.Severity)
+                {
+                    case "INFO":
+                        Logger.Info(parser.DateAndTime, parser.Message);
+                        break;
+
+                    case "WARNING":
+                        Logger.Warning(parser.DateAndTime, parser.Message);
+                        break;
+
+                    case "ERROR":
+                        Logger.Error(parser.DateAndTime, parser.Message);
+                        break;
+
+                    case "CRITICAL":
+                        Logger.Critical(parser.DateAndTime, parser.Message);
+                        break;
+
+                    case "FATAL":
+                        Logger.Fatal(parser.DateAndTime, parser.Message);
+                        break;
+                }
+
+                parser.Parse();
             }
         }
     }
