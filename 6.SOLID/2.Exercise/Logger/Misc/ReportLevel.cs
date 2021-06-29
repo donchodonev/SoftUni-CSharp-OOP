@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CustomLogger.Misc
+﻿namespace CustomLogger.Misc
 {
     public enum ReportLevel
     {

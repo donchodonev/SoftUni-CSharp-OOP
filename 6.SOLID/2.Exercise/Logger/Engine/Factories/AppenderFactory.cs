@@ -3,9 +3,6 @@ using CustomLogger.Appenders.Models;
 using CustomLogger.Layouts.Interfaces;
 using CustomLogger.Layouts.Models;
 using CustomLogger.Misc;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CustomLogger.Engine.Factories
 {
@@ -32,6 +29,7 @@ namespace CustomLogger.Engine.Factories
                     appender = new ConsoleAppender(GetLayout());
                     appender.ReportLevel = ReportLevel;
                     break;
+
                 case "FileAppender":
                     appender = new FileAppender(GetLayout());
                     appender.ReportLevel = ReportLevel;

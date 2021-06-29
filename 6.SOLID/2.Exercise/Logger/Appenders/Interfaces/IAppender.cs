@@ -1,8 +1,5 @@
-﻿using CustomLogger.Misc;
-using CustomLogger.Layouts.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CustomLogger.Layouts.Interfaces;
+using CustomLogger.Misc;
 
 namespace CustomLogger.Appenders.Interfaces
 {

@@ -1,7 +1,4 @@
 ﻿using CustomLogger.Layouts.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CustomLogger.Layouts.Models
 {

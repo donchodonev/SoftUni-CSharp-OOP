@@ -1,9 +1,6 @@
-﻿using CustomLogger.Misc;
-using CustomLogger.Appenders.Interfaces;
+﻿using CustomLogger.Appenders.Interfaces;
 using CustomLogger.Loggers.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using CustomLogger.Misc;
 
 namespace CustomLogger.Loggers.Models
 {

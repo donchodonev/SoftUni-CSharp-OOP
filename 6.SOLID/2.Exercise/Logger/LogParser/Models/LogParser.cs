@@ -1,7 +1,5 @@
 ﻿using CustomLogger.LogParser.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CustomLogger.LogParser.Models
 {

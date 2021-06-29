@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <StartupObject>CustomLogger.Program</StartupObject>
+    <StartupObject>CustomLogger.StartUp</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
