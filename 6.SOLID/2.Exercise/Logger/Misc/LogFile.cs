@@ -3,9 +3,9 @@ using System.Text;
 
 namespace CustomLogger.Misc
 {
-    public class LogFile
+    public class LogFile : ILogFile
     {
-        public StringBuilder Log { get; set; }
+        public StringBuilder Log { get; set; } = new StringBuilder();
 
         public int Size
         {

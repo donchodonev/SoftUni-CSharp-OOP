@@ -10,9 +10,12 @@ namespace CustomLogger.Appenders.Models
         public ConsoleAppender(ILayout layout)
         {
             Layout = layout;
+            LogFile = new LogFile();
         }
 
         public ILayout Layout { get; }
+        public ILogFile LogFile { get; set; }
+        public int MessagesAppended { get; set; }
         public (string date, ReportLevel msgType, string text) OutputText { get; set; }
         public ReportLevel ReportLevel { get; set; }
 
@@ -20,8 +23,14 @@ namespace CustomLogger.Appenders.Models
         {
             if (OutputText.msgType >= ReportLevel)
             {
-                Console.WriteLine(string.Format(Layout.LayoutFormat, OutputText.date, OutputText.msgType, OutputText.text));
+                LogFile.Write(string.Format(Layout.LayoutFormat, OutputText.date, OutputText.msgType, OutputText.text));
+                MessagesAppended++;
             }
+        }
+
+        public void DumpLoggedData()
+        {
+            Console.Write(LogFile.Log);
         }
     }
 }

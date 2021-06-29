@@ -16,9 +16,12 @@ namespace CustomLogger.Appenders.Models
             Layout = layout;
             path = string.Format("Misc{0}log.txt", separator);
             ReportLevel = ReportLevel.Info;
+            LogFile = new LogFile();
         }
 
         public ILayout Layout { get; }
+        public ILogFile LogFile { get; set; }
+        public int MessagesAppended { get; set; }
         public (string date, ReportLevel msgType, string text) OutputText { get; set; }
 
         public string Path
@@ -33,8 +36,14 @@ namespace CustomLogger.Appenders.Models
         {
             if (OutputText.msgType >= ReportLevel)
             {
-                File.AppendAllText(Path, string.Format(Layout.LayoutFormat, OutputText.date, OutputText.msgType, OutputText.text) + Environment.NewLine);
+                LogFile.Write(string.Format(Layout.LayoutFormat, OutputText.date, OutputText.msgType, OutputText.text));
+                MessagesAppended++;
             }
+        }
+
+        public void DumpLoggedData()
+        {
+            File.AppendAllText(Path, LogFile.Log.ToString());
         }
     }
 }

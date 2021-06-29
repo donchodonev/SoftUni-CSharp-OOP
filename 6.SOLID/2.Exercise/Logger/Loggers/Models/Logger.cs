@@ -22,6 +22,14 @@ namespace CustomLogger.Loggers.Models
             }
         }
 
+        public void DumpCollectedData()
+        {
+            foreach (var appender in Appenders)
+            {
+                appender.DumpLoggedData();
+            }
+        }
+
         public void Error(string dateAndTime, string textBody)
         {
             foreach (var appender in Appenders)
