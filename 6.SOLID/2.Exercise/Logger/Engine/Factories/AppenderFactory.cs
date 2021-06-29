@@ -48,6 +48,10 @@ namespace CustomLogger.Engine.Factories
                 case "SimpleLayout":
                     layout = new SimpleLayout();
                     break;
+
+                case "XMLLayout":
+                    layout = new XMLLayout();
+                    break;
             }
 
             return layout;
