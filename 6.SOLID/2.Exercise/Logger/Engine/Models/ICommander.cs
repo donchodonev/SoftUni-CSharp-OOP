@@ -1,6 +1,5 @@
 ﻿using CustomLogger.Appenders.Interfaces;
 using CustomLogger.Engine.Factories;
-using CustomLogger.Loggers.Interfaces;
 using CustomLogger.Loggers.Models;
 using CustomLogger.LogParser.Interfaces;
 using CustomLogger.Misc;
@@ -14,7 +13,7 @@ namespace CustomLogger.Engine.Interfaces
         protected List<BaseAppender> Appenders { get; set; } = new List<BaseAppender>();
         protected string AppenderType { get; set; }
         protected string LayoutType { get; set; }
-        protected ILogger Logger { get; set; }
+        protected BaseLogger Logger { get; set; }
         protected int NumberOfAppenders { get; set; }
         protected ReportLevel ReportLevel { get; set; }
 

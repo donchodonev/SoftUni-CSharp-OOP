@@ -1,7 +1,5 @@
 ﻿using CustomLogger.Appenders.Interfaces;
 using CustomLogger.Layouts.Interfaces;
-using CustomLogger.Misc;
-using System;
 using System.IO;
 
 namespace CustomLogger.Appenders.Models
