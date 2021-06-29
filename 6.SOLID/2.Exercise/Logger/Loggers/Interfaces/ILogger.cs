@@ -8,6 +8,8 @@ namespace CustomLogger.Loggers.Interfaces
 
         public void Critical(string dateAndTime, string textBody);
 
+        public void DisplayLoggerInfo();
+
         public void DumpCollectedData();
 
         public void Error(string dateAndTime, string textBody);

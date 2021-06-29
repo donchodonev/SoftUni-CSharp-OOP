@@ -1,5 +1,4 @@
 ﻿using CustomLogger.Appenders.Interfaces;
-using CustomLogger.Appenders.Models;
 using CustomLogger.Engine.Factories;
 using CustomLogger.Loggers.Interfaces;
 using CustomLogger.Loggers.Models;
@@ -7,7 +6,6 @@ using CustomLogger.LogParser.Interfaces;
 using CustomLogger.Misc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CustomLogger.Engine.Interfaces
 {
@@ -32,6 +30,7 @@ namespace CustomLogger.Engine.Interfaces
 
             CreateLogger();
             StartLogging();
+            Logger.DisplayLoggerInfo();
             DumpData();
         }
 

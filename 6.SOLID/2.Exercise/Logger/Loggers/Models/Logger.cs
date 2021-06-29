@@ -1,6 +1,7 @@
 ﻿using CustomLogger.Appenders.Interfaces;
 using CustomLogger.Loggers.Interfaces;
 using CustomLogger.Misc;
+using System;
 
 namespace CustomLogger.Loggers.Models
 {
@@ -19,6 +20,21 @@ namespace CustomLogger.Loggers.Models
             {
                 appender.OutputText = (dateAndTime, ReportLevel.Critical, textBody);
                 appender.Append();
+            }
+        }
+
+        public void DisplayLoggerInfo()
+        {
+            foreach (var appender in Appenders)
+            {
+                appender.LogFile.Write(
+                Environment.NewLine +
+                $"Logger info" +
+                Environment.NewLine +
+                $"Appender type:{appender.GetType().Name}" +
+                $", Layout type: {appender.Layout.GetType().Name}" +
+                $", Report level: {appender.ReportLevel}" +
+                $", Messages appended: {appender.MessagesAppended}");
             }
         }
 
