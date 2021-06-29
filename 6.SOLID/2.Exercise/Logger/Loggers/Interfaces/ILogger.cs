@@ -1,13 +1,14 @@
-﻿using Logger.Appenders.Interfaces;
+﻿using CustomLogger.Misc;
+using CustomLogger.Appenders.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Logger.Loggers.Interfaces
+namespace CustomLogger.Loggers.Interfaces
 {
     public interface ILogger
     {
-        public IAppender Appender { get; }
+        public IAppender[] Appenders { get; }
 
         public void Critical(string dateAndTime, string textBody);
 

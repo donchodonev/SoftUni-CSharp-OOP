@@ -1,9 +1,9 @@
-﻿using Logger.Layouts.Interfaces;
+﻿using CustomLogger.Layouts.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Logger.Layouts.Models
+namespace CustomLogger.Layouts.Models
 {
     public class SimpleLayout : ILayout
     {

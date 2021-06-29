@@ -1,28 +1,27 @@
 ﻿using CustomLogger.Misc;
-using Logger.Appenders.Interfaces;
-using Logger.Layouts.Interfaces;
+using CustomLogger.Appenders.Interfaces;
+using CustomLogger.Layouts.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Logger.Appenders.Models
+namespace CustomLogger.Appenders.Models
 {
     public class ConsoleAppender : IAppender
     {
         public ConsoleAppender(ILayout layout)
         {
             Layout = layout;
+            ReportLevel = ReportLevel.Info;
         }
 
         public ILayout Layout { get; }
-        public (string date, string msgType, string text) OutputText { get; set; }
+        public (string date, ReportLevel msgType, string text) OutputText { get; set; }
         public ReportLevel ReportLevel { get; set; }
 
         public void Append()
         {
-            Enum.TryParse(OutputText.msgType, true, out ReportLevel result);
-
-            if (result >= ReportLevel)
+            if (OutputText.msgType >= ReportLevel)
             {
                 Console.WriteLine(string.Format(Layout.LayoutFormat, OutputText.date, OutputText.msgType, OutputText.text));
             }

@@ -1,6 +1,6 @@
 ﻿using CustomLogger.Misc;
-using Logger.Appenders.Interfaces;
-using Logger.Layouts.Interfaces;
+using CustomLogger.Appenders.Interfaces;
+using CustomLogger.Layouts.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,10 +17,11 @@ namespace CustomLogger.Appenders.Models
         {
             Layout = layout;
             path = string.Format("Misc{0}log.txt", separator);
+            ReportLevel = ReportLevel.Info;
         }
 
         public ILayout Layout { get; }
-        public (string date, string msgType, string text) OutputText { get; set; }
+        public (string date, ReportLevel msgType, string text) OutputText { get; set; }
 
         public string Path
         {
@@ -32,9 +33,7 @@ namespace CustomLogger.Appenders.Models
 
         public void Append()
         {
-            Enum.TryParse(OutputText.msgType, true, out ReportLevel result);
-
-            if (result >= ReportLevel)
+            if (OutputText.msgType >= ReportLevel)
             {
                 File.AppendAllText(Path, string.Format(Layout.LayoutFormat, OutputText.date, OutputText.msgType, OutputText.text) + Environment.NewLine);
             }
