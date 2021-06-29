@@ -6,42 +6,29 @@ using System.IO;
 
 namespace CustomLogger.Appenders.Models
 {
-    public class FileAppender : IAppender
+    public class FileAppender : BaseAppender
     {
         private string path;
         private string separator = System.IO.Path.DirectorySeparatorChar.ToString();
 
         public FileAppender(ILayout layout)
+            : base(layout)
         {
-            Layout = layout;
-            path = string.Format("Misc{0}log.txt", separator);
-            ReportLevel = ReportLevel.Info;
-            LogFile = new LogFile();
+            Path = string.Format("Misc{0}log.txt", separator);
         }
 
-        public ILayout Layout { get; }
-        public ILogFile LogFile { get; set; }
-        public int MessagesAppended { get; set; }
-        public (string date, ReportLevel msgType, string text) OutputText { get; set; }
-
-        public string Path
+        private string Path
         {
             get => path;
             set { path = value; }
         }
 
-        public ReportLevel ReportLevel { get; set; }
-
-        public void Append()
+        public void ChangeLogfilePath(string newPath)
         {
-            if (OutputText.msgType >= ReportLevel)
-            {
-                LogFile.Write(string.Format(Layout.LayoutFormat, OutputText.date, OutputText.msgType, OutputText.text));
-                MessagesAppended++;
-            }
+            Path = newPath;
         }
 
-        public void DumpLoggedData()
+        public override void DumpLoggedData()
         {
             File.AppendAllText(Path, LogFile.Log.ToString());
         }

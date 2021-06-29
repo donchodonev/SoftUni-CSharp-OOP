@@ -4,7 +4,7 @@ namespace CustomLogger.Loggers.Interfaces
 {
     public interface ILogger
     {
-        public IAppender[] Appenders { get; }
+        public BaseAppender[] Appenders { get; }
 
         public void Critical(string dateAndTime, string textBody);
 

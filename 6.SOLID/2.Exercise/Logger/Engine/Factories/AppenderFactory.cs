@@ -19,9 +19,9 @@ namespace CustomLogger.Engine.Factories
         private string AppenderName { get; }
         private string Layout { get; }
 
-        public IAppender GetAppender()
+        public BaseAppender GetAppender()
         {
-            IAppender appender = null;
+            BaseAppender appender = null;
 
             switch (AppenderName)
             {

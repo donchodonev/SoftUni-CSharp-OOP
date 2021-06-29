@@ -7,12 +7,12 @@ namespace CustomLogger.Loggers.Models
 {
     public class Logger : ILogger
     {
-        public Logger(params IAppender[] appenders)
+        public Logger(params BaseAppender[] appenders)
         {
             Appenders = appenders;
         }
 
-        public IAppender[] Appenders { get; }
+        public BaseAppender[] Appenders { get; }
 
         public void Critical(string dateAndTime, string textBody)
         {

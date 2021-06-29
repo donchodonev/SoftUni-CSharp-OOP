@@ -11,7 +11,7 @@ namespace CustomLogger.Engine.Interfaces
 {
     public abstract class ICommander
     {
-        protected List<IAppender> Appenders { get; set; } = new List<IAppender>();
+        protected List<BaseAppender> Appenders { get; set; } = new List<BaseAppender>();
         protected string AppenderType { get; set; }
         protected string LayoutType { get; set; }
         protected ILogger Logger { get; set; }
