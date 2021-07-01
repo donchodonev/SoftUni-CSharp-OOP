@@ -37,8 +37,6 @@ namespace Stealer
 
             var objectType = Type.GetType(className);
 
-            var hackerInstance = Activator.CreateInstance(objectType, null);
-
             var fields = objectType
                 .GetFields(BindingFlags.Instance | BindingFlags.Public);
 
@@ -59,6 +57,25 @@ namespace Stealer
             foreach (var setter in publicSetters.Where(s => s.Name.StartsWith("set")))
             {
                 sb.AppendLine($"{setter.Name} have to be private!");
+            }
+
+            return sb.ToString();
+        }
+
+        public string RevealPrivateMethods(string className)
+        {
+            Type hacker = Type.GetType(className);
+
+            StringBuilder sb = new StringBuilder();
+
+            var privateMethods = hacker.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
+
+            sb.AppendLine($"All Private Methods of Class: {className}");
+            sb.AppendLine($"Base Class: {hacker.BaseType.Name}");
+
+            foreach (var method in privateMethods)
+            {
+                sb.AppendLine($"{method.Name}");
             }
 
             return sb.ToString();
