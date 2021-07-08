@@ -8,7 +8,8 @@ namespace AuthorProblem
         [Author("Gosho")]
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Tracker tracker = new Tracker();
+            tracker.PrintMethodsByAuthor();
         }
     }
 }
