@@ -5,14 +5,12 @@ public class AxeTests
 {
     private Axe axe;
     private Dummy dummy;
-    private Hero hero;
 
     [SetUp]
     public void SetUp()
     {
         axe = new Axe(10, 10);
         dummy = new Dummy(10, 10);
-        hero = new Hero("Doncho");
     }
 
     [Test]
