@@ -26,7 +26,7 @@ public class Hero
     public IWeapon Weapon
     {
         get { return this.weapon; }
-        set { this.Weapon = value; }
+        set { this.weapon = value; }
 
     }
 
