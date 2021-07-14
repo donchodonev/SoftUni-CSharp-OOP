@@ -60,19 +60,9 @@ public class DummyTests
         int initialDummyHealth = 10;
         int initialDummyExperience = 10;
 
-        int expectedExperience = 10;
-        string heroName = "Doncho";
-
         dummy = new Dummy(initialDummyHealth, initialDummyExperience);
 
-        Assert.That(() => dummy.IsDead(), Is.False);
-
-        Hero hero = new Hero(heroName);
-
-        hero.Attack(dummy);
-
-        Assert.That(() => dummy.IsDead(), Is.True);
-
-        Assert.That(hero.Experience, Is.EqualTo(expectedExperience));
+        Assert.That(() => dummy.GiveExperience(),
+            Throws.InvalidOperationException.With.Message.EqualTo("Target is not dead."));
     }
 }
