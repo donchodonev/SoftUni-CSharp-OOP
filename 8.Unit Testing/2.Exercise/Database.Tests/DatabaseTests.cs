@@ -101,5 +101,16 @@ namespace Tests
             //Assert
             Assert.That(expectedValueAtLastIndex,Is.EqualTo(actualValueAtLastIndex));
         }
+
+        [Test]
+        public void FetchMethod_ShouldReturnResult_AsIntArray()
+        {
+            //Arrange
+            int[] numArray = new int[] {0, 1, 2, 3, 4, 5};
+            database = new Database(numArray);
+
+            //Assert
+            Assert.That(() => database.Fetch(),Is.EqualTo(numArray));
+        }
     }
 }
