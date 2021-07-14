@@ -1,8 +1,10 @@
-﻿public class Hero
+﻿using Skeleton.Interfaces;
+
+public class Hero
 {
     private string name;
     private int experience;
-    private Axe weapon;
+    private IWeapon weapon;
 
     public Hero(string name)
     {
@@ -21,12 +23,14 @@
         get { return this.experience; }
     }
 
-    public Axe Weapon
+    public IWeapon Weapon
     {
         get { return this.weapon; }
+        set { this.Weapon = value; }
+
     }
 
-    public void Attack(Dummy target)
+    public void Attack(ITarget target)
     {
         this.weapon.Attack(target);
 
