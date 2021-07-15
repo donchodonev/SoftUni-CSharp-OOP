@@ -32,9 +32,9 @@ namespace Tests
         {
             //Act
             exDatabase.Add(person);
-            
+
             //Assert
-            Assert.That(() => exDatabase.Add(person),Throws.InvalidOperationException);
+            Assert.That(() => exDatabase.Add(person), Throws.InvalidOperationException);
         }
 
         [Test]
@@ -52,6 +52,16 @@ namespace Tests
         {
             //Assert
             Assert.That(() => exDatabase.Remove(), Throws.InvalidOperationException);
+        }
+
+        [Test]
+        public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_Null()
+        {
+            //Act
+            string username = null;
+
+            //Assert
+            Assert.That(() => exDatabase.FindByUsername(username), Throws.ArgumentNullException);
         }
     }
 }
