@@ -36,5 +36,15 @@ namespace Tests
             //Assert
             Assert.That(() => exDatabase.Add(person),Throws.InvalidOperationException);
         }
+
+        [Test]
+        public void Should_ThrowException_IfAdding_UserWithExisting_ID()
+        {
+            //Act
+            exDatabase.Add(person);
+
+            //Assert
+            Assert.That(() => exDatabase.Add(person), Throws.InvalidOperationException);
+        }
     }
 }
