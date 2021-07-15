@@ -149,8 +149,25 @@ namespace Tests
         [Test]
         public void Should_ThrowException_IfRemovingUsers_WhenDatabase_IsEmpty()
         {
+            //Arrange
+            exDatabase = new ExtendedDatabase();
+
             //Assert
             Assert.That(() => exDatabase.Remove(), Throws.InvalidOperationException);
+        }
+
+        [Test]
+        public void RemoveMethod_Should_Work()
+        {
+            //Arrange
+            exDatabase = new ExtendedDatabase(personArray);
+
+            //Act
+            exDatabase.Remove();
+            int expectedCount = 1;
+            int actualCount = exDatabase.Count;
+
+            Assert.AreEqual(expectedCount,actualCount);
         }
 
         [Test]
