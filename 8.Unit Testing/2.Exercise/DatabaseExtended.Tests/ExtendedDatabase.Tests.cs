@@ -28,6 +28,17 @@ namespace Tests
         }
 
         [Test]
+        public void EmptyConstructorInit_ShouldReturn_ZeroElementsCount()
+        {
+            //Act
+            int actualCount = exDatabase.Count;
+            int expectedCount = 0;
+
+            //Assert
+            Assert.That(actualCount, Is.EqualTo(expectedCount));
+        }
+
+        [Test]
         public void Should_ThrowException_IfAdding_UserWithExisting_Username()
         {
             //Act
