@@ -89,5 +89,22 @@ namespace Tests
                     Message.
                     EqualTo("No user is present by this username!"));
         }
+
+        [Test]
+        public void FindByUsername_ShouldBe_CaseSensitive()
+        {
+            //Act
+            string newUsername = "doncho";
+
+            exDatabase.Add(person);
+
+            //Assert
+            Assert.That(() => exDatabase.FindByUsername(newUsername),
+                Throws.
+                    InvalidOperationException.
+                    With.
+                    Message.
+                    EqualTo("No user is present by this username!"));
+        }
     }
 }
