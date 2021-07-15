@@ -106,5 +106,20 @@ namespace Tests
                     Message.
                     EqualTo("No user is present by this username!"));
         }
+
+        [Test]
+        public void FindByID_WithNegativeValue_Should_ThrowException()
+        {
+            //Act
+            long id = -1;
+
+            //Assert
+            Assert.That(() => exDatabase.FindById(id),
+                Throws
+                .ArgumentException
+                .With
+                .Message
+                .EqualTo("Id should be a positive number!"));
+        }
     }
 }
