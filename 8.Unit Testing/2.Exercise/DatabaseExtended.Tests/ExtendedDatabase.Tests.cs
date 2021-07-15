@@ -1,4 +1,3 @@
-using ExtendedDatabaseProject;
 using NUnit.Framework;
 
 namespace Tests
