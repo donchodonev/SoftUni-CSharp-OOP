@@ -112,6 +112,22 @@ namespace Tests
         }
 
         [Test]
+        public void RemoveMethod_ShouldRemove_Only_TheLastElement_InTheArray()
+        {
+            //Arrange
+            exDatabase.Add(person);
+            int lastIndex = exDatabase.Count - 1;
+
+            //Act
+            exDatabase.Remove();
+
+            int expectedLastIndex = 0;
+
+            //Assert
+            Assert.That(lastIndex, Is.EqualTo(expectedLastIndex));
+        }
+
+        [Test]
         public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_Null()
         {
             //Act
