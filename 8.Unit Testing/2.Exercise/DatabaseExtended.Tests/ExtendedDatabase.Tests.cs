@@ -39,6 +39,20 @@ namespace Tests
         }
 
         [Test]
+        public void ConstructorWithTwoElements_ShouldReturn_TwoElementsCount()
+        {
+            //Arrange
+            exDatabase = new ExtendedDatabase(personArray);
+
+            //Act
+            int actualCount = exDatabase.Count;
+            int expectedCount = 2;
+
+            //Assert
+            Assert.That(actualCount, Is.EqualTo(expectedCount));
+        }
+
+        [Test]
         public void Should_ThrowException_IfAdding_UserWithExisting_Username()
         {
             //Act
