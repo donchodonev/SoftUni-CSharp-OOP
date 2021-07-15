@@ -1,3 +1,4 @@
+using ExtendedDatabaseProject;
 using NUnit.Framework;
 
 namespace Tests
@@ -57,7 +58,7 @@ namespace Tests
             //Arrange
             int arraySize = 16;
 
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < arraySize; i++)
             {
                 exDatabase.Add(new Person(i, $"my name is {i}"));
             }
@@ -192,6 +193,24 @@ namespace Tests
                 .With
                 .Message
                 .EqualTo("Id should be a positive number!"));
+        }
+
+        [Test]
+        public void FindByID_With_WrongID_Should_ThrowException()
+        {
+            //Assert
+            exDatabase.Add(person);
+
+            //Act
+            long id = 111;
+
+            //Assert
+            Assert.That(() => exDatabase.FindById(id),
+                Throws
+                    .InvalidOperationException
+                    .With
+                    .Message
+                    .EqualTo("No user is present by this ID!"));
         }
     }
 }
