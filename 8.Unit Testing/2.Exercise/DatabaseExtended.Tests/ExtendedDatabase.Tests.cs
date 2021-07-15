@@ -210,6 +210,9 @@ namespace Tests
         [TestCase("")]
         public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_NullOrEmpty(string username)
         {
+            //Act
+            exDatabase.Add(person);
+
             //Assert
             Assert.That(() => exDatabase.FindByUsername(username), Throws.ArgumentNullException);
         }
@@ -250,11 +253,15 @@ namespace Tests
         [Test]
         public void FindByUsername_ShouldWork_With_CorrectUsername()
         {
-            //Assert
+            //Act
             exDatabase.Add(person);
 
+            string expectedUsername = person.UserName;
+
+            string actualUsername = exDatabase.FindByUsername(person.UserName).UserName;
+
             //Assert
-            Assert.That(() => exDatabase.FindByUsername(person.UserName),Is.EqualTo(person));
+            Assert.AreEqual(expectedUsername,actualUsername);
         }      
         
         //FindById() method 
@@ -262,11 +269,15 @@ namespace Tests
         [Test]
         public void FindByID_ShouldWork_With_CorrectID()
         {
-            //Assert
+            //Arrange
             exDatabase.Add(person);
 
+            //Act
+            string expectedUserNameResult = "Doncho";
+            string actualUserNameResult = exDatabase.FindById(person.Id).UserName;
+
             //Assert
-            Assert.That(() => exDatabase.FindById(person.Id),Is.EqualTo(person));
+            Assert.AreEqual(expectedUserNameResult,actualUserNameResult);
         }
 
         [Test]
