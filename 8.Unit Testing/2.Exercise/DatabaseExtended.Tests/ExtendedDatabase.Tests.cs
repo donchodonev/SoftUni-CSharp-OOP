@@ -1,4 +1,3 @@
-using ExtendedDatabaseProject;
 using NUnit.Framework;
 
 namespace Tests
@@ -120,6 +119,20 @@ namespace Tests
         }
 
         [Test]
+        public void AddMethod_ShouldAddPerson_WhenAllConditionsAreMet()
+        {
+            //Arrange
+            int expectedDatabasePeopleCount = 1;
+
+            //Act
+            exDatabase.Add(person);
+            int actualDatabasePeopleCount = exDatabase.Count;
+
+            //Assert
+            Assert.AreEqual(expectedDatabasePeopleCount,actualDatabasePeopleCount);
+        }
+
+        [Test]
         public void Should_ThrowException_IfRemovingUsers_WhenDatabase_IsEmpty()
         {
             //Assert
@@ -156,7 +169,7 @@ namespace Tests
         public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_EmptyString()
         {
             //Act
-            string username = "";
+            string username = string.Empty;
 
             //Assert
             Assert.That(() => exDatabase.FindByUsername(username), Throws.ArgumentNullException);
@@ -193,6 +206,16 @@ namespace Tests
                     With.
                     Message.
                     EqualTo("No user is present by this username!"));
+        }
+
+        [Test]
+        public void FindByUsername_ShouldWork_With_CorrectUsername()
+        {
+            //Assert
+            exDatabase.Add(person);
+
+            //Assert
+            Assert.That(() => exDatabase.FindByUsername(person.UserName),Is.EqualTo(person));
         }
 
         [Test]
