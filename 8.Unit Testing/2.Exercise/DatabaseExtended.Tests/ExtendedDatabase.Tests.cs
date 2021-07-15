@@ -67,6 +67,24 @@ namespace Tests
         }
 
         [Test]
+        public void LastIndex_ShouldEqual_PreviousElementIndex_Plus_1()
+        {
+            //Arrange
+            exDatabase = new ExtendedDatabase(personArray);
+
+            //// indices = [0] and [1]
+            //// Count = 2
+            //// current element index is at |database.Count - 1|
+
+            int previousElementIndex = exDatabase.Count - 2;
+
+            int expectedIndex = 0;
+
+            //Assert
+            Assert.That(previousElementIndex, Is.EqualTo(expectedIndex));
+        }
+
+        [Test]
         public void Should_ThrowException_IfAdding_UserWithExisting_Username()
         {
             //Act
