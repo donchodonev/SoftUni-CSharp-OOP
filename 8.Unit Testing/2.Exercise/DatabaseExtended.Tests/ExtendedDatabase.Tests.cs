@@ -35,6 +35,7 @@ namespace Tests
             //Arrange
             exDatabase = new ExtendedDatabase(personArray);
 
+            //Act
             int expectedCount = 2;
             int exDatabaseCount = exDatabase.Count;
 
@@ -43,6 +44,13 @@ namespace Tests
         }
 
         //Constructor
+
+        [Test]
+        public void Constructor_With_MoreThan16Elements_Should_ThrowException()
+        {
+            //Assert
+            Assert.That(() => new ExtendedDatabase(new Person[17]),Throws.ArgumentException);
+        }
 
         [Test]
         public void EmptyConstructorInit_ShouldReturn_ZeroElementsCount()
@@ -111,11 +119,13 @@ namespace Tests
         [Test]
         public void Should_ThrowException_IfAdding_UserWithExisting_Username()
         {
-            //Act
+            //Arrange
+            Person secondPerson = new Person(999, person.UserName);
+
             exDatabase.Add(person);
 
             //Assert
-            Assert.That(() => exDatabase.Add(person),
+            Assert.That(() => exDatabase.Add(secondPerson),
                 Throws.InvalidOperationException
                     .With
                     .Message
@@ -125,7 +135,7 @@ namespace Tests
         [Test]
         public void Should_ThrowException_IfAdding_UserWithExisting_ID()
         {
-            //Assert
+            //Arrange
             Person secondPerson = new Person(person.Id, "Gogi");
 
             //Act
@@ -198,7 +208,7 @@ namespace Tests
 
         [TestCase(null)]
         [TestCase("")]
-        public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_Null(string username)
+        public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_NullOrEmpty(string username)
         {
             //Assert
             Assert.That(() => exDatabase.FindByUsername(username), Throws.ArgumentNullException);
@@ -247,6 +257,8 @@ namespace Tests
             Assert.That(() => exDatabase.FindByUsername(person.UserName),Is.EqualTo(person));
         }      
         
+        //FindById() method 
+
         [Test]
         public void FindByID_ShouldWork_With_CorrectID()
         {
