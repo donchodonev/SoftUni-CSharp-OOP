@@ -46,5 +46,12 @@ namespace Tests
             //Assert
             Assert.That(() => exDatabase.Add(person), Throws.InvalidOperationException);
         }
+
+        [Test]
+        public void Should_ThrowException_IfRemovingUsers_WhenDatabase_IsEmpty()
+        {
+            //Assert
+            Assert.That(() => exDatabase.Remove(), Throws.InvalidOperationException);
+        }
     }
 }
