@@ -63,5 +63,15 @@ namespace Tests
             //Assert
             Assert.That(() => exDatabase.FindByUsername(username), Throws.ArgumentNullException);
         }
+
+        [Test]
+        public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_EmptyString()
+        {
+            //Act
+            string username = "";
+
+            //Assert
+            Assert.That(() => exDatabase.FindByUsername(username), Throws.ArgumentNullException);
+        }
     }
 }
