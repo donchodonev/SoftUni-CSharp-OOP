@@ -1,3 +1,4 @@
+using ExtendedDatabaseProject;
 using NUnit.Framework;
 
 namespace Tests
@@ -24,6 +25,19 @@ namespace Tests
             };
 
             exDatabase = new ExtendedDatabase();
+        }
+
+        [Test]
+        public void DatabaseCountProperty_Should_IncreaseBy1_ForEachPersonAdded()
+        {
+            //Arrange
+            exDatabase = new ExtendedDatabase(personArray);
+
+            int expectedCount = 2;
+            int exDatabaseCount = exDatabase.Count;
+
+            //Act - Assert
+            Assert.AreEqual(expectedCount, exDatabaseCount);
         }
 
         [Test]
@@ -216,6 +230,16 @@ namespace Tests
 
             //Assert
             Assert.That(() => exDatabase.FindByUsername(person.UserName),Is.EqualTo(person));
+        }      
+        
+        [Test]
+        public void FindByID_ShouldWork_With_CorrectID()
+        {
+            //Assert
+            exDatabase.Add(person);
+
+            //Assert
+            Assert.That(() => exDatabase.FindById(person.Id),Is.EqualTo(person));
         }
 
         [Test]
