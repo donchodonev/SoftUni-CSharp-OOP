@@ -73,5 +73,21 @@ namespace Tests
             //Assert
             Assert.That(() => exDatabase.FindByUsername(username), Throws.ArgumentNullException);
         }
+
+        [Test]
+        public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_FalseUsername()
+        {
+            //Act
+            string username = "non-existent-username";
+            exDatabase.Add(person);
+
+            //Assert
+            Assert.That(() => exDatabase.FindByUsername(username),
+                Throws.
+                    InvalidOperationException.
+                    With.
+                    Message.
+                    EqualTo("No user is present by this username!"));
+        }
     }
 }
