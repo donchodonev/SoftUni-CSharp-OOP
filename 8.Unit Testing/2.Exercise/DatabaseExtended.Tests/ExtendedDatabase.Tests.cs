@@ -63,7 +63,11 @@ namespace Tests
                 exDatabase.Add(new Person(i, $"my name is {i}"));
             }
             //Assert
-            Assert.That(() => exDatabase.Add(person), Throws.InvalidOperationException);
+            Assert.That(() => exDatabase.Add(person), 
+                Throws.InvalidOperationException
+                    .With
+                    .Message
+                    .EqualTo("Array's capacity must be exactly 16 integers!"));
         }
 
         [Test]
@@ -91,17 +95,28 @@ namespace Tests
             exDatabase.Add(person);
 
             //Assert
-            Assert.That(() => exDatabase.Add(person), Throws.InvalidOperationException);
+            Assert.That(() => exDatabase.Add(person),
+                Throws.InvalidOperationException
+                    .With
+                    .Message
+                    .EqualTo("There is already user with this username!"));
         }
 
         [Test]
         public void Should_ThrowException_IfAdding_UserWithExisting_ID()
         {
+            //Assert
+            Person secondPerson = new Person(person.Id, "Gogi");
+
             //Act
             exDatabase.Add(person);
 
             //Assert
-            Assert.That(() => exDatabase.Add(person), Throws.InvalidOperationException);
+            Assert.That(() => exDatabase.Add(secondPerson),
+                Throws.InvalidOperationException
+                    .With
+                    .Message
+                    .EqualTo("There is already user with this Id!"));
         }
 
         [Test]
