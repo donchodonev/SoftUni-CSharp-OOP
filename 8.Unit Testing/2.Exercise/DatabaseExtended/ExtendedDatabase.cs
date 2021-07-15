@@ -88,7 +88,7 @@ namespace ExtendedDatabaseProject
         {
             if (id < 0)
             {
-                throw new ArgumentOutOfRangeException("Id should be a positive number!");
+                throw new ArgumentException("Id should be a positive number!");
             }
 
             if (this.persons.Any(p => p?.Id == id) == false)
