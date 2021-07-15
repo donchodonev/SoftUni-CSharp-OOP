@@ -1,4 +1,4 @@
-using ExtendedDatabaseProject;
+using System;
 using NUnit.Framework;
 
 namespace Tests
@@ -37,62 +37,10 @@ namespace Tests
 
             //Act
             int expectedCount = 2;
-            int exDatabaseCount = exDatabase.Count;
+            int actualCount = exDatabase.Count;
 
             //Act - Assert
-            Assert.AreEqual(expectedCount, exDatabaseCount);
-        }
-
-        //Constructor
-
-        [Test]
-        public void Constructor_With_MoreThan16Elements_Should_ThrowException()
-        {
-            //Assert
-            Assert.That(() => new ExtendedDatabase(new Person[17]),Throws.ArgumentException);
-        }
-
-        [Test]
-        public void EmptyConstructorInit_ShouldReturn_ZeroElementsCount()
-        {
-            //Act
-            int actualCount = exDatabase.Count;
-            int expectedCount = 0;
-
-            //Assert
-            Assert.That(actualCount, Is.EqualTo(expectedCount));
-        }
-
-        [Test]
-        public void ConstructorWithTwoElements_ShouldReturn_TwoElementsCount()
-        {
-            //Arrange
-            exDatabase = new ExtendedDatabase(personArray);
-
-            //Act
-            int actualCount = exDatabase.Count;
-            int expectedCount = 2;
-
-            //Assert
-            Assert.That(actualCount, Is.EqualTo(expectedCount));
-        }
-
-        [Test]
-        public void LastIndex_ShouldEqual_PreviousElementIndex_Plus_1()
-        {
-            //Arrange
-            exDatabase = new ExtendedDatabase(personArray);
-
-            //// indices = [0] and [1]
-            //// Count = 2
-            //// current element index is at |database.Count - 1|
-
-            int previousElementIndex = exDatabase.Count - 2;
-
-            int expectedIndex = 0;
-
-            //Assert
-            Assert.That(previousElementIndex, Is.EqualTo(expectedIndex));
+            Assert.AreEqual(expectedCount, actualCount);
         }
 
         //Add method
@@ -108,7 +56,7 @@ namespace Tests
                 exDatabase.Add(new Person(i, $"my name is {i}"));
             }
             //Assert
-            Assert.That(() => exDatabase.Add(person),
+            Assert.That(() => exDatabase.Add(new Person(16,"Freud")),
                 Throws.InvalidOperationException
                     .With
                     .Message
@@ -143,10 +91,7 @@ namespace Tests
 
             //Assert
             Assert.That(() => exDatabase.Add(secondPerson),
-                Throws.InvalidOperationException
-                    .With
-                    .Message
-                    .EqualTo("There is already user with this Id!"));
+                Throws.InvalidOperationException);
         }
 
         [Test]
@@ -236,7 +181,7 @@ namespace Tests
         [Test]
         public void FindByUsername_ShouldBe_CaseSensitive()
         {
-            //Act
+            //Arrange
             string newUsername = "doncho";
 
             exDatabase.Add(person);
@@ -284,15 +229,10 @@ namespace Tests
         public void FindByID_WithNegativeValue_Should_ThrowException()
         {
             //Act
-            long id = -1;
+            long id = -1L;
 
             //Assert
-            Assert.That(() => exDatabase.FindById(id),
-                Throws
-                .ArgumentException
-                .With
-                .Message
-                .EqualTo("Id should be a positive number!"));
+            Assert.Throws<ArgumentOutOfRangeException>(() => exDatabase.FindById(id));
         }
 
         [Test]
@@ -302,7 +242,7 @@ namespace Tests
             exDatabase.Add(person);
 
             //Act
-            long id = 111;
+            long id = 111L;
 
             //Assert
             Assert.That(() => exDatabase.FindById(id),
