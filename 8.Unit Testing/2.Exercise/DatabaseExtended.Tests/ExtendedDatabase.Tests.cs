@@ -27,6 +27,8 @@ namespace Tests
             exDatabase = new ExtendedDatabase();
         }
 
+        //Count
+
         [Test]
         public void DatabaseCountProperty_Should_IncreaseBy1_ForEachPersonAdded()
         {
@@ -39,6 +41,8 @@ namespace Tests
             //Act - Assert
             Assert.AreEqual(expectedCount, exDatabaseCount);
         }
+
+        //Constructor
 
         [Test]
         public void EmptyConstructorInit_ShouldReturn_ZeroElementsCount()
@@ -66,24 +70,6 @@ namespace Tests
         }
 
         [Test]
-        public void WhenArraySizeLargerThan16_Should_ThrowException()
-        {
-            //Arrange
-            int arraySize = 16;
-
-            for (int i = 0; i < arraySize; i++)
-            {
-                exDatabase.Add(new Person(i, $"my name is {i}"));
-            }
-            //Assert
-            Assert.That(() => exDatabase.Add(person), 
-                Throws.InvalidOperationException
-                    .With
-                    .Message
-                    .EqualTo("Array's capacity must be exactly 16 integers!"));
-        }
-
-        [Test]
         public void LastIndex_ShouldEqual_PreviousElementIndex_Plus_1()
         {
             //Arrange
@@ -100,6 +86,27 @@ namespace Tests
             //Assert
             Assert.That(previousElementIndex, Is.EqualTo(expectedIndex));
         }
+
+        //Add method
+
+        [Test]
+        public void Should_ThrowException_WhenAddingUser_Exceeds_ArrayCapacity()
+        {
+            //Arrange
+            int arraySize = 16;
+
+            for (int i = 0; i < arraySize; i++)
+            {
+                exDatabase.Add(new Person(i, $"my name is {i}"));
+            }
+            //Assert
+            Assert.That(() => exDatabase.Add(person),
+                Throws.InvalidOperationException
+                    .With
+                    .Message
+                    .EqualTo("Array's capacity must be exactly 16 integers!"));
+        }
+
 
         [Test]
         public void Should_ThrowException_IfAdding_UserWithExisting_Username()
@@ -146,15 +153,7 @@ namespace Tests
             Assert.AreEqual(expectedDatabasePeopleCount,actualDatabasePeopleCount);
         }
 
-        [Test]
-        public void Should_ThrowException_IfRemovingUsers_WhenDatabase_IsEmpty()
-        {
-            //Arrange
-            exDatabase = new ExtendedDatabase();
-
-            //Assert
-            Assert.That(() => exDatabase.Remove(), Throws.InvalidOperationException);
-        }
+        //Remove() method
 
         [Test]
         public void RemoveMethod_Should_Work()
@@ -167,41 +166,40 @@ namespace Tests
             int expectedCount = 1;
             int actualCount = exDatabase.Count;
 
-            Assert.AreEqual(expectedCount,actualCount);
+            //Assert
+            Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [Test]
+        public void Should_ThrowException_IfRemovingUsers_WhenDatabase_IsEmpty()
+        {
+            //Arrange
+            exDatabase = new ExtendedDatabase();
+
+            //Assert
+            Assert.That(() => exDatabase.Remove(), Throws.InvalidOperationException);
         }
 
         [Test]
         public void RemoveMethod_ShouldRemove_Only_TheLastElement_InTheArray()
         {
             //Arrange
-            exDatabase.Add(person);
-            int lastIndex = exDatabase.Count - 1;
+            exDatabase = new ExtendedDatabase(personArray);
 
             //Act
-            exDatabase.Remove();
-
-            int expectedLastIndex = 0;
+            Person removedPerson = new Person(3, "Dimitrichko");
+            exDatabase.Remove(); //remove Dimitrichko
 
             //Assert
-            Assert.That(lastIndex, Is.EqualTo(expectedLastIndex));
+            Assert.That(() => exDatabase.FindById(removedPerson.Id), Throws.InvalidOperationException);
         }
 
-        [Test]
-        public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_Null()
+        //FindByUsername() method
+
+        [TestCase(null)]
+        [TestCase("")]
+        public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_Null(string username)
         {
-            //Act
-            string username = null;
-
-            //Assert
-            Assert.That(() => exDatabase.FindByUsername(username), Throws.ArgumentNullException);
-        }
-
-        [Test]
-        public void Should_ThrowException_WhenTryingToFind_UserWithName_EqualTo_EmptyString()
-        {
-            //Act
-            string username = string.Empty;
-
             //Assert
             Assert.That(() => exDatabase.FindByUsername(username), Throws.ArgumentNullException);
         }
