@@ -53,6 +53,20 @@ namespace Tests
         }
 
         [Test]
+        public void WhenArraySizeLargerThan16_Should_ThrowException()
+        {
+            //Arrange
+            int arraySize = 16;
+
+            for (int i = 0; i < 16; i++)
+            {
+                exDatabase.Add(new Person(i, $"my name is {i}"));
+            }
+            //Assert
+            Assert.That(() => exDatabase.Add(person), Throws.InvalidOperationException);
+        }
+
+        [Test]
         public void Should_ThrowException_IfAdding_UserWithExisting_Username()
         {
             //Act
