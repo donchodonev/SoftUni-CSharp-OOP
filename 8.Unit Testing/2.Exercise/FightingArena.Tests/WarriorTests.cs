@@ -112,5 +112,20 @@ namespace Tests
             //Assert
             Assert.Throws<InvalidOperationException>(() => warrior.Attack(opposingWarrior));
         }
+
+        [TestCase()]
+        public void AttackMethod_Should_Reduce_AttackerHP_By_OpponentDamagePts()
+        {
+            //Arrange
+            Warrior opposingWarrior = new Warrior("Opponent", this.damage, this.hp);
+
+            //Act
+            int expectedHpLeft = 40;
+            warrior.Attack(opposingWarrior);
+            int actualHpLeft = warrior.HP;
+
+            //Assert
+            Assert.AreEqual(expectedHpLeft,actualHpLeft);
+        }
     }
 }
