@@ -1,4 +1,5 @@
 using System;
+using CarManager;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -36,11 +37,6 @@ namespace Tests
                 }
             );
         }
-
-        //Properties test
-        //Getters
-
-
 
         //Properties test
         //Setters
