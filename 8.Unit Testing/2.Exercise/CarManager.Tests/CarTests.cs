@@ -174,5 +174,35 @@ namespace Tests
             //Assert
             Assert.AreEqual(expectedFuelAmount, car.FuelAmount);
         }
+
+        //Methods test
+        //Drive
+
+        [Test]
+        public void DriveMethod_ShouldThrowException_When_NotEnoughFuel()
+        {
+            //Arrange
+            double distance = 1001;
+            car.Refuel(100);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => car.Drive(distance));
+        }
+
+        [Test]
+        public void DriveMethod_Should_Reduce_FuelAmount()
+        {
+            //Arrange
+            double distance = 1000;
+            double expectedFuelAmount = 0;
+
+            //Act
+            car.Refuel(100);
+            car.Drive(distance);
+            double actualFuelAmount = car.FuelAmount;
+
+            //Assert
+            Assert.AreEqual(expectedFuelAmount,actualFuelAmount);
+        }
     }
 }
