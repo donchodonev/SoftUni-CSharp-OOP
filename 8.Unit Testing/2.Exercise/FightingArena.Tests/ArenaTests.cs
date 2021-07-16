@@ -36,5 +36,40 @@ namespace Tests
             //Assert
             Assert.AreEqual(expectedResult,actualResult);
         }
+
+        [Test]
+        public void WarriorsProperty_ShouldReturn_AddedWarriors()
+        {
+            //Arrange
+            arena.Enroll(attacker);
+            arena.Enroll(defender);
+
+            //Act
+            List<Warrior> expectedResult = new List<Warrior>()
+            {
+                attacker,
+                defender
+            };
+
+            List<Warrior> actualResult = arena.Warriors.ToList();
+
+            //Assert
+            Assert.AreEqual(expectedResult,actualResult);
+        }
+
+        [Test]
+        public void WarriorsCountProperty_Should_Return_InnerWarriorList_Count()
+        {
+            //Arrange
+            arena.Enroll(attacker);
+            arena.Enroll(defender);
+
+            //Act
+            int expectedResult = arena.Warriors.Count;
+            int actualResult = arena.Count;
+
+            //Assert
+            Assert.AreEqual(expectedResult,actualResult);
+        }
     }
 }
