@@ -19,7 +19,7 @@ namespace Tests
 
             name = "Doncho";
             damage = 10;
-            hp = 10;
+            hp = 50;
 
             warrior = new Warrior(name, damage, hp);
         }
@@ -74,6 +74,43 @@ namespace Tests
 
             //Assert
             Assert.Throws<ArgumentException>(() => new Warrior(this.name, this.damage, hp));
+        }
+
+        //Methods test
+
+        [TestCase(30)]
+        [TestCase(29)]
+        public void AttackMethod_Should_ThrowException_When_AttackingWarrior_HP_IsUnderOrEqualTo_30(int hp)
+        {
+            //Arrange
+            Warrior attackingWarrior = new Warrior("Attacker", this.damage, hp);
+            Warrior opposingWarrior = new Warrior("Opponent", this.damage, this.hp);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => attackingWarrior.Attack(opposingWarrior));
+        }     
+        
+        [TestCase(30)]
+        [TestCase(29)]
+        public void AttackMethod_Should_ThrowException_When_OpposingWarrior_HP_IsUnderOrEqualTo_30(int hp)
+        {
+            //Arrange
+            Warrior attackingWarrior = new Warrior("Attacker", this.damage, this.hp);
+            Warrior opposingWarrior = new Warrior("Opponent", this.damage, hp);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => attackingWarrior.Attack(opposingWarrior));
+        }
+
+        [Test]
+        public void AttackMethod_Should_ThrowException_When_OpponentDamage_IsGreater_ThanAttacker_Health()
+        {
+            //Arrange
+            int damage = 51;
+            Warrior opposingWarrior = new Warrior("Opponent", damage, this.hp);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => warrior.Attack(opposingWarrior));
         }
     }
 }
