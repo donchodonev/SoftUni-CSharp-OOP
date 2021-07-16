@@ -156,9 +156,10 @@ namespace Tests
 
             //Act
             car.Refuel(refuelAmount);
+            double actualFuelAmount = car.FuelAmount;
 
             //Assert
-            Assert.AreEqual(expectedFuelAmount,car.FuelCapacity);
+            Assert.AreEqual(expectedFuelAmount,actualFuelAmount);
         }
 
         [Test]
