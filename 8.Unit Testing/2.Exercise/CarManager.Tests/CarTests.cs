@@ -1,3 +1,4 @@
+using System;
 using CarManager;
 using NUnit.Framework;
 
@@ -92,6 +93,45 @@ namespace Tests
 
             //Assert
             Assert.AreEqual(expectedFuelAmount, actualFuelAmount);
+        }
+
+        //Properties test
+            //Setters
+                //Testing only with constructor here as Car class is properly encapsulated and uses method DI
+        [TestCase(null)]
+        [TestCase("")]
+        public void Make_Property_Setter_Should_ThrowException_When_Value_IsNullOrEmpty(string maker)
+        {
+            //Assert
+            Assert.Throws
+                <ArgumentException>(() => car = new Car(maker, this.model, this.fuelConsumption, this.fuelCapacity));
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        public void Model_Property_Setter_Should_ThrowException_When_Value_IsNullOrEmpty(string model)
+        {
+            //Assert
+            Assert.Throws
+                <ArgumentException>(() => car = new Car(this.make, model, this.fuelConsumption, this.fuelCapacity));
+        }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void FuelConsumption_Property_Setter_Should_ThrowException_When_Value_IsLessOrEqualTo_Zero(double fuelConsumption)
+        {
+            //Assert
+            Assert.Throws
+                <ArgumentException>(() => car = new Car(this.make, this.model,fuelConsumption, this.fuelCapacity));
+        }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void FuelCapacity_Property_Setter_Should_ThrowException_When_Value_IsLessOrEqualTo_Zero(double fuelCapacity)
+        {
+            //Assert
+            Assert.Throws
+                <ArgumentException>(() => car = new Car(this.make, this.model, this.fuelConsumption, fuelCapacity));
         }
     }
 }
