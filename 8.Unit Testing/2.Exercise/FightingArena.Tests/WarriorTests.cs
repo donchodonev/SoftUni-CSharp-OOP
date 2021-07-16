@@ -113,7 +113,7 @@ namespace Tests
             Assert.Throws<InvalidOperationException>(() => warrior.Attack(opposingWarrior));
         }
 
-        [TestCase()]
+        [Test]
         public void AttackMethod_Should_Reduce_AttackerHP_By_OpponentDamagePts()
         {
             //Arrange
@@ -126,6 +126,21 @@ namespace Tests
 
             //Assert
             Assert.AreEqual(expectedHpLeft,actualHpLeft);
+        }
+
+        [Test]
+        public void AttackMethod_Should_Reduce_EnemyHP_To_0_When_Damage_IsGreaterThan_Enemy_HP()
+        {
+            //Arrange
+            Warrior attacker = new Warrior(this.name, 100, this.hp);
+            Warrior opponent = new Warrior(this.name, this.damage, this.hp);
+
+            int expectedOpponentHp = 0;
+            attacker.Attack(opponent);
+            int actualOpponentHp = opponent.HP;
+
+            //Assert
+            Assert.AreEqual(expectedOpponentHp,actualOpponentHp);
         }
     }
 }
