@@ -84,5 +84,35 @@ namespace Tests
             //Assert
             Assert.Throws<InvalidOperationException>(() => arena.Enroll(new Warrior(attacker.Name, damage, health)));
         }
+
+        [Test]
+        public void FightMethod_Should_ThrowException_When_EitherAttackerName_NotPresent()
+        {
+            //Arrange
+            string wrongNameOne = "wrongNameOne";
+            string wrongNameTwo = "wrongNameTwo";
+
+            arena.Enroll(attacker);
+            arena.Enroll(defender);
+
+            //Assert
+            Assert.Multiple(() =>
+            {
+                Assert.Throws<InvalidOperationException>(() => arena.Fight(wrongNameOne, wrongNameTwo));
+                Assert.Throws<InvalidOperationException>(() => arena.Fight(wrongNameOne, defender.Name));
+                Assert.Throws<InvalidOperationException>(() => arena.Fight(attacker.Name, wrongNameTwo));
+            });
+        }
+
+        [Test]
+        public void FightMethod_Should_Work_When_BothAttackerName_ArePresent()
+        {
+            //Arrange
+            arena.Enroll(attacker);
+            arena.Enroll(defender);
+
+            //Assert
+            Assert.DoesNotThrow(() => arena.Fight(attacker.Name,defender.Name));
+        }
     }
 }
