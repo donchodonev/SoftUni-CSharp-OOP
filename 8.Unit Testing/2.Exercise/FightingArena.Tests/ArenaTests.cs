@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FightingArena;
 using NUnit.Framework;
@@ -70,6 +71,18 @@ namespace Tests
 
             //Assert
             Assert.AreEqual(expectedResult,actualResult);
+        }
+
+        [Test]
+        public void Enroll_Should_ThrowException_When_TryingToAdd_Warrior_WithExistingName()
+        {
+            //Arrange
+            int damage = 111;
+            int hp = 222;
+            arena.Enroll(attacker);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => arena.Enroll(new Warrior(attacker.Name, damage, health)));
         }
     }
 }
