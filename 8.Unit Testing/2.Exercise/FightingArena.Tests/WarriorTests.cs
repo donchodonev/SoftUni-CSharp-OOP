@@ -132,7 +132,8 @@ namespace Tests
         public void AttackMethod_Should_Reduce_EnemyHP_To_0_When_Damage_IsGreaterThan_Enemy_HP()
         {
             //Arrange
-            Warrior attacker = new Warrior(this.name, 100, this.hp);
+            int damage = 100;
+            Warrior attacker = new Warrior(this.name, damage, this.hp);
             Warrior opponent = new Warrior(this.name, this.damage, this.hp);
 
             int expectedOpponentHp = 0;
@@ -141,6 +142,40 @@ namespace Tests
 
             //Assert
             Assert.AreEqual(expectedOpponentHp,actualOpponentHp);
+        }
+
+        [TestCase]
+        public void AttackMethod_Should_Reduce_EnemyHP_ByAttackerDamage_When_Damage_IsNotGreaterThan_Enemy_HP()
+        {
+            //Arrange
+            int damage = 49;
+
+            Warrior attacker = new Warrior(this.name, damage, this.hp);
+            Warrior opponent = new Warrior(this.name, this.damage, this.hp);
+
+            int expectedOpponentHp = 1;
+            attacker.Attack(opponent);
+            int actualOpponentHp = opponent.HP;
+
+            //Assert
+            Assert.AreEqual(expectedOpponentHp, actualOpponentHp);
+        }
+
+        [Test]
+        public void AttackMethod_Should_Reduce_EnemyHP_ByAttackerDamage_When_Damage_EqualTo_Enemy_HP()
+        {
+            //Arrange
+            int damage = 50;
+
+            Warrior attacker = new Warrior(this.name, damage, this.hp);
+            Warrior opponent = new Warrior(this.name, this.damage, this.hp);
+
+            int expectedOpponentHp = 0;
+            attacker.Attack(opponent);
+            int actualOpponentHp = opponent.HP;
+
+            //Assert
+            Assert.AreEqual(expectedOpponentHp, actualOpponentHp);
         }
     }
 }
