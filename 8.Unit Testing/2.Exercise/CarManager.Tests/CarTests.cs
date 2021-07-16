@@ -1,5 +1,4 @@
 using System;
-using CarManager;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -41,60 +40,7 @@ namespace Tests
         //Properties test
         //Getters
 
-        [Test]
-        public void Make_Property_Getter_Should_Get_BackingField_Value()
-        {
-            //Act
-            string expectedMake = this.make;
-            string actualMake = car.Make;
 
-            //Assert
-            Assert.AreEqual(expectedMake, actualMake);
-        }
-
-        [Test]
-        public void Model_Property_Getter_Should_Get_BackingField_Value()
-        {
-            //Act
-            string expectedModel = this.model;
-            string actualModel = car.Model;
-
-            //Assert
-            Assert.AreEqual(expectedModel, actualModel);
-        }
-
-        [Test]
-        public void FuelConsumption_Property_Getter_Should_Get_BackingField_Value()
-        {
-            //Act
-            double expectedFuelConsumption = this.fuelConsumption;
-            double actualFuelConsumption = car.FuelConsumption;
-
-            //Assert
-            Assert.AreEqual(expectedFuelConsumption, actualFuelConsumption);
-        }
-
-        [Test]
-        public void FuelCapacity_Property_Getter_Should_Get_BackingField_Value()
-        {
-            //Act
-            double expectedFuelCapacity = this.fuelCapacity;
-            double actualFuelCapacity = car.FuelCapacity;
-
-            //Assert
-            Assert.AreEqual(expectedFuelCapacity, actualFuelCapacity);
-        }
-
-        [Test]
-        public void FuelAmount_Property_Getter_Should_Get_BackingField_Value()
-        {
-            //Act
-            double expectedFuelAmount = this.fuelAmount;
-            double actualFuelAmount = car.FuelAmount;
-
-            //Assert
-            Assert.AreEqual(expectedFuelAmount, actualFuelAmount);
-        }
 
         //Properties test
         //Setters
