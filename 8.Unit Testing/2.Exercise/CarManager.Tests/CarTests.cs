@@ -147,18 +147,32 @@ namespace Tests
             Assert.Throws<ArgumentException>(() => car.Refuel(fuelGiven));
         }
 
-        [Test]
-        public void RefuelMethod_Should_Increment_FuelAmount_ByFuelAmount_And_UpToFuel_MaxCapacity()
+        [TestCase(100d)]
+        [TestCase(1000d)]
+        public void RefuelMethod_Should_Increment_FuelAmount_UpToFuel_MaxCapacity(double refuelAmount)
         {
             //Arrange
-            double actualFuelAmount = 111d;
+            double expectedFuelAmount = car.FuelCapacity;
 
             //Act
-            car.Refuel(actualFuelAmount);
-            double expectedFuelAmount = car.FuelAmount;
+            car.Refuel(refuelAmount);
 
             //Assert
-            Assert.AreNotEqual(actualFuelAmount,expectedFuelAmount);
+            Assert.AreEqual(expectedFuelAmount,car.FuelCapacity);
+        }
+
+        [Test]
+        public void RefuelMethod_Should_Increment_FuelAmount()
+        {
+            //Arrange
+            double expectedFuelAmount = 99d;
+            double actualFuelAmount = car.FuelAmount;
+
+            //Act
+            car.Refuel(expectedFuelAmount);
+
+            //Assert
+            Assert.AreEqual(expectedFuelAmount, car.FuelAmount);
         }
     }
 }
