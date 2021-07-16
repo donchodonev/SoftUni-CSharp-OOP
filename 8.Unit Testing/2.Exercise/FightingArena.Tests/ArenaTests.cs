@@ -35,7 +35,7 @@ namespace Tests
             List<Warrior> actualResult = arena.Warriors.ToList();
 
             //Assert
-            Assert.AreEqual(expectedResult,actualResult);
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Tests
             List<Warrior> actualResult = arena.Warriors.ToList();
 
             //Assert
-            Assert.AreEqual(expectedResult,actualResult);
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Tests
             int actualResult = arena.Count;
 
             //Assert
-            Assert.AreEqual(expectedResult,actualResult);
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
         [Test]
@@ -111,8 +111,18 @@ namespace Tests
             arena.Enroll(attacker);
             arena.Enroll(defender);
 
+            int expectedAttackerHp = 30;
+            int expectedDefenderHp = 30;
+
+            //Act
+            arena.Fight(attacker.Name, defender.Name);
+
             //Assert
-            Assert.DoesNotThrow(() => arena.Fight(attacker.Name,defender.Name));
+
+            Assert.AreEqual(expectedAttackerHp, attacker.HP);
+            Assert.AreEqual(expectedDefenderHp, defender.HP);
         }
     }
 }
+
+
