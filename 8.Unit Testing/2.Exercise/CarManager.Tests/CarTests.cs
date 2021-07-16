@@ -1,6 +1,7 @@
 using System;
 using CarManager;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 namespace Tests
 {
@@ -38,7 +39,7 @@ namespace Tests
         }
 
         //Properties test
-            //Getters
+        //Getters
 
         [Test]
         public void Make_Property_Getter_Should_Get_BackingField_Value()
@@ -48,9 +49,9 @@ namespace Tests
             string actualMake = car.Make;
 
             //Assert
-            Assert.AreEqual(expectedMake,actualMake);
-        }  
-        
+            Assert.AreEqual(expectedMake, actualMake);
+        }
+
         [Test]
         public void Model_Property_Getter_Should_Get_BackingField_Value()
         {
@@ -59,7 +60,7 @@ namespace Tests
             string actualModel = car.Model;
 
             //Assert
-            Assert.AreEqual(expectedModel,actualModel);
+            Assert.AreEqual(expectedModel, actualModel);
         }
 
         [Test]
@@ -70,7 +71,7 @@ namespace Tests
             double actualFuelConsumption = car.FuelConsumption;
 
             //Assert
-            Assert.AreEqual(expectedFuelConsumption,actualFuelConsumption);
+            Assert.AreEqual(expectedFuelConsumption, actualFuelConsumption);
         }
 
         [Test]
@@ -78,7 +79,7 @@ namespace Tests
         {
             //Act
             double expectedFuelCapacity = this.fuelCapacity;
-            double actualFuelCapacity= car.FuelCapacity;
+            double actualFuelCapacity = car.FuelCapacity;
 
             //Assert
             Assert.AreEqual(expectedFuelCapacity, actualFuelCapacity);
@@ -89,15 +90,16 @@ namespace Tests
         {
             //Act
             double expectedFuelAmount = this.fuelAmount;
-            double actualFuelAmount= car.FuelAmount;
+            double actualFuelAmount = car.FuelAmount;
 
             //Assert
             Assert.AreEqual(expectedFuelAmount, actualFuelAmount);
         }
 
         //Properties test
-            //Setters
-                //Testing only with constructor here as Car class is properly encapsulated and uses method DI
+        //Setters
+        //Testing only with constructor here as Car class is properly encapsulated and uses method DI
+
         [TestCase(null)]
         [TestCase("")]
         public void Make_Property_Setter_Should_ThrowException_When_Value_IsNullOrEmpty(string maker)
@@ -122,7 +124,7 @@ namespace Tests
         {
             //Assert
             Assert.Throws
-                <ArgumentException>(() => car = new Car(this.make, this.model,fuelConsumption, this.fuelCapacity));
+                <ArgumentException>(() => car = new Car(this.make, this.model, fuelConsumption, this.fuelCapacity));
         }
 
         [TestCase(0)]
@@ -132,6 +134,31 @@ namespace Tests
             //Assert
             Assert.Throws
                 <ArgumentException>(() => car = new Car(this.make, this.model, this.fuelConsumption, fuelCapacity));
+        }
+
+        //Methods test
+        //Refuel
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void RefuelMethod_Should_ThrowException_When_FuelAmount_Is_ZeroOrNegative(double fuelGiven)
+        {
+            //Assert
+            Assert.Throws<ArgumentException>(() => car.Refuel(fuelGiven));
+        }
+
+        [Test]
+        public void RefuelMethod_Should_Increment_FuelAmount_ByFuelAmount_And_UpToFuel_MaxCapacity()
+        {
+            //Arrange
+            double actualFuelAmount = 111d;
+
+            //Act
+            car.Refuel(actualFuelAmount);
+            double expectedFuelAmount = car.FuelAmount;
+
+            //Assert
+            Assert.AreNotEqual(actualFuelAmount,expectedFuelAmount);
         }
     }
 }
