@@ -8,6 +8,8 @@ namespace Chainblock.Models
 {
     public class Chainblock : IChainblock
     {
+        private List<ITransaction> transactions;
+
         public int Count { get; }
 
         public void Add(ITransaction tx)
