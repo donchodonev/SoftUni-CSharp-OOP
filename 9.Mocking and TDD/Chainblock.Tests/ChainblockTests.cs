@@ -19,5 +19,11 @@ namespace Chainblock.Tests
             chainblock = new Mock<IChainblock>();
             transaction = new Mock<ITransaction>();
         }
+
+        [Test]
+        public void EmptyConstructor_Should_InitialiseObject()
+        {
+            Assert.IsNotNull(chainblock);
+        }
     }
 }
