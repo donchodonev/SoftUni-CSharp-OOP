@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using NUnit;
@@ -23,6 +24,9 @@ namespace Chainblock.Tests
             mockChainblock = new Mock<IChainblock>();
             mockTransaction = new Mock<ITransaction>();
             chainblock = new Models.Chainblock();
+
+            mockTransaction.Setup(id => id.Id)
+                .Returns(1);
         }
 
         [Test]
@@ -42,7 +46,7 @@ namespace Chainblock.Tests
             int actualCount = chainblock.Count;
 
             //Assert
-            Assert.AreEqual(expectedCount,actualCount);
+            Assert.AreEqual(expectedCount, actualCount);
 
         }
 
@@ -57,15 +61,12 @@ namespace Chainblock.Tests
             ITransaction actualTransaction = chainblock[0];
 
             //Assert
-            Assert.AreEqual(expectedTransactionAt0Index,actualTransaction);
+            Assert.AreEqual(expectedTransactionAt0Index, actualTransaction);
         }
-        
+
         [Test]
         public void Add_Should_NotAddTransaction_Successfully_IfTransaction_IsNotUnique()
         {
-            //Arrange
-            mockTransaction.Setup(id => id.Id)
-                .Returns(1);
 
             chainblock.Add(mockTransaction.Object);
             chainblock.Add(mockTransaction.Object);
@@ -75,35 +76,78 @@ namespace Chainblock.Tests
             int actualTransactionCount = chainblock.Count;
 
             //Assert
-            Assert.AreEqual(expectedTransactionsCount,actualTransactionCount);
+            Assert.AreEqual(expectedTransactionsCount, actualTransactionCount);
         }
 
         [Test]
         public void ChangeTrStatus_Should_ChangeTrStatus_ForGiven_IdAndStatus()
         {
-            Assert.Fail();
+            //Arrange
+            mockTransaction.Setup(t => t.Status).Returns(TransactionStatus.Aborted);
 
+            //Act
+            chainblock.Add(mockTransaction.Object);
+            chainblock.ChangeTransactionStatus(1, TransactionStatus.Successfull);
+
+            TransactionStatus expectedStatus = TransactionStatus.Successfull;
+            TransactionStatus actualStatus = chainblock[0].Status;
         }
 
         [Test]
         public void Contains_ShouldConfirm_Whether_GivenTransaction_IsFound_ByTransaction()
         {
-            Assert.Fail();
-
+            //Arrange
+            chainblock.Add(mockTransaction.Object);
+            //Act
+            bool expectedResult = true;
+            bool actualResult = chainblock.Contains(mockTransaction.Object);
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
         [Test]
         public void Contains_ShouldConfirm_Whether_GivenTransaction_IsFound_ByID()
         {
-            Assert.Fail();
+            //Arrange
+            chainblock.Add(mockTransaction.Object);
+            //Act
+            int id = 1;
+            bool expectedResult = true;
+            bool actualResult = chainblock.Contains(id);
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
 
         }
 
         [Test]
         public void GetAllAmountInRange_Should_Return_Transactions_BetweenRange()
         {
-            Assert.Fail();
+            //Arrange
+            List<ITransaction> expectedTransactionsList = new List<ITransaction>();
 
+            Mock<ITransaction> tr = new Mock<ITransaction>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                tr = new Mock<ITransaction>();
+
+                tr.Setup(a => a.Id).Returns(i);
+                tr.Setup(a => a.Amount).Returns(i);
+
+                chainblock.Add(tr.Object);
+
+                if (i >= 1 && i <= 3)
+                {
+                    expectedTransactionsList.Add(tr.Object);
+                }
+            }
+
+            //Act
+            IEnumerable<ITransaction> expectedTransactions = (IEnumerable<ITransaction>)expectedTransactionsList;
+            IEnumerable<ITransaction> actualTransactions = chainblock.GetAllInAmountRange(1, 3);
+
+            //Assert
+            Assert.AreEqual(expectedTransactions, actualTransactions);
         }
 
         [Test]

@@ -50,7 +50,16 @@ namespace Chainblock.Models
 
         public IEnumerable<ITransaction> GetAllInAmountRange(double lo, double hi)
         {
-            throw new NotImplementedException();
+            List<ITransaction> transactionsToReturn = new List<ITransaction>();
+
+            foreach (var transaction in this.transactions
+                .Where(t => t.Amount >= lo)
+                .Where(t => t.Amount <= hi))
+            {
+                transactionsToReturn.Add(transaction);
+            }
+
+            return (IEnumerable<ITransaction>) transactionsToReturn;
         }
 
         public IEnumerable<ITransaction> GetAllOrderedByAmountDescendingThenById()
