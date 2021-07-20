@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using NUnit;
 using Moq;
@@ -154,9 +155,35 @@ namespace Chainblock.Tests
         }
 
         [Test]
-        public void GetAllOrderedByAmountDescendingThenById_Should_Return_AllAmountOrdererAccordingly()
+        public void GetAllOrderedByAmountDescending_Should_Return_AllAmountOrdererAccordingly()
         {
-            Assert.Fail();
+            //Arrange
+            Mock<ITransaction> transaction;
+
+            for (int i = 0; i < 5; i++)
+            {
+                transaction = new Mock<ITransaction>();
+
+                transaction.SetupProperty(p => p.Amount);
+                transaction.SetupProperty(p => p.Id);
+                
+                transaction.Object.Amount = i;
+                transaction.Object.Id = i;
+
+                chainblock.Add(transaction.Object);
+            }
+
+            //Act
+            List<ITransaction> expectedTransactionsList = new List<ITransaction>();
+
+            for (int i = 4; i >= 0; i--)
+            {
+                expectedTransactionsList.Add(chainblock.GetAllInAmountRange(0, 10)
+                    .ToList()[i]);
+            }
+
+            //Assert
+            Assert.AreEqual(expectedTransactionsList,chainblock.GetAllOrderedByAmountDescendingThenById());
         }
 
         [Test]

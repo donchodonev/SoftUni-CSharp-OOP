@@ -64,7 +64,9 @@ namespace Chainblock.Models
 
         public IEnumerable<ITransaction> GetAllOrderedByAmountDescendingThenById()
         {
-            throw new NotImplementedException();
+            return (IEnumerable<ITransaction>) transactions
+                .OrderByDescending(t => t.Amount)
+                .ThenBy(t => t.Id);
         }
 
         public IEnumerable<string> GetAllReceiversWithTransactionStatus(TransactionStatus status)
