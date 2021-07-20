@@ -1,35 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Chainblock.Contracts;
+using NUnit;
 using Moq;
+using Chainblock.Contracts;
+using Chainblock;
 using NUnit.Framework;
+using Chainblock = Chainblock.Models.Chainblock;
 
 namespace Chainblock.Tests
 {
     [TestFixture]
     public class ChainblockTests
     {
-        private Mock<IChainblock> chainblock;
-        private Mock<ITransaction> transaction;
+        private Mock<IChainblock> mockChainblock;
+        private Mock<ITransaction> mockTransaction;
+        private Models.Chainblock chainblock;
 
         [SetUp]
         public void Initialise()
         {
-            chainblock = new Mock<IChainblock>();
-            transaction = new Mock<ITransaction>();
+            mockChainblock = new Mock<IChainblock>();
+            mockTransaction = new Mock<ITransaction>();
+            chainblock = new Models.Chainblock();
         }
 
         [Test]
         public void EmptyConstructor_Should_InitialiseObject()
         {
-            Assert.IsNotNull(chainblock);
+            Assert.IsNotNull(mockChainblock);
         }
 
         [Test]
         public void Count_ShouldIncrease_By_1_ForEachAddedTransaction()
         {
-            Assert.Fail();
+            //Arrange
+            chainblock.Add(mockTransaction.Object);
+
+            //Act
+            int expectedCount = 1;
+            int actualCount = chainblock.Count;
+
+            //Assert
+            Assert.AreEqual(expectedCount,actualCount);
 
         }
 

@@ -10,11 +10,16 @@ namespace Chainblock.Models
     {
         private List<ITransaction> transactions;
 
-        public int Count { get; }
+        public Chainblock()
+        {
+            transactions = new List<ITransaction>();
+        }
+
+        public int Count => transactions.Count;
 
         public void Add(ITransaction tx)
         {
-            throw new NotImplementedException();
+            transactions.Add(tx);
         }
 
         public void ChangeTransactionStatus(int id, TransactionStatus newStatus)

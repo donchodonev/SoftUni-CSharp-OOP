@@ -5,7 +5,7 @@ using Chainblock.Contracts;
 
 namespace Chainblock.Models
 {
-    public class Transaction : ITransaction
+   public class Transaction : ITransaction
     {
         public double Amount { get; set; }
         public string From { get; set; }
