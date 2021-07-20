@@ -94,7 +94,7 @@ namespace Chainblock.Tests
             TransactionStatus actualStatus = chainblock[0].Status;
 
             //Assert
-            Assert.AreEqual(expectedStatus,actualStatus);
+            Assert.AreEqual(expectedStatus, actualStatus);
         }
 
         [Test]
@@ -166,7 +166,7 @@ namespace Chainblock.Tests
 
                 transaction.SetupProperty(p => p.Amount);
                 transaction.SetupProperty(p => p.Id);
-                
+
                 transaction.Object.Amount = i;
                 transaction.Object.Id = i;
 
@@ -183,7 +183,38 @@ namespace Chainblock.Tests
             }
 
             //Assert
-            Assert.AreEqual(expectedTransactionsList,chainblock.GetAllOrderedByAmountDescendingThenById());
+            Assert.AreEqual(expectedTransactionsList, chainblock.GetAllOrderedByAmountDescendingThenById());
+        }
+        [Test]
+        public void GetAllOrderedByAmountDescending_ThenById_Should_Return_AllTransactions_OrdererAccordingly()
+        {
+            //Arrange
+            Mock<ITransaction> transaction;
+
+            for (int i = 0; i < 5; i++)
+            {
+                transaction = new Mock<ITransaction>();
+
+                transaction.SetupProperty(p => p.Amount);
+                transaction.SetupProperty(p => p.Id);
+
+                transaction.Object.Amount = 1;
+                transaction.Object.Id = i;
+
+                chainblock.Add(transaction.Object);
+            }
+
+            //Act
+            List<ITransaction> expectedTransactionsList = new List<ITransaction>();
+
+            for (int i = 0; i <= 4; i++)
+            {
+                expectedTransactionsList.Add(chainblock.GetAllInAmountRange(0, 10)
+                    .ToList()[i]);
+            }
+
+            //Assert
+            Assert.AreEqual(expectedTransactionsList, chainblock.GetAllOrderedByAmountDescendingThenById());
         }
 
         [Test]
