@@ -76,7 +76,10 @@ namespace Chainblock.Models
 
         public IEnumerable<string> GetAllSendersWithTransactionStatus(TransactionStatus status)
         {
-            throw new NotImplementedException();
+            return transactions
+                .Where(t => t.Status == status)
+                .Select(t => t.From)
+                .ToList();
         }
 
         public ITransaction GetById(int id)

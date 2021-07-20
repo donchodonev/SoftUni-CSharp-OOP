@@ -7,6 +7,7 @@ using NUnit;
 using Moq;
 using Chainblock.Contracts;
 using Chainblock;
+using Chainblock.Models;
 using NUnit.Framework;
 using Chainblock = Chainblock.Models.Chainblock;
 
@@ -233,7 +234,45 @@ namespace Chainblock.Tests
         [Test]
         public void GetAllSendersByStatus_Should_Return_ReceiversName_By_Given_TrStatus()
         {
-            Assert.Fail();
+            //Arrange
+            List<ITransaction> expectedReturn = new List<ITransaction>();
+
+            for (int i = 0; i < 2; i++)
+            {
+                mockTransaction = new Mock<ITransaction>();
+
+                mockTransaction.Setup(t => t.From).Returns("Gogi");
+                mockTransaction.Setup(t => t.Status).Returns(TransactionStatus.Successfull);
+                mockTransaction.Setup(t => t.Id).Returns(i);
+
+                expectedReturn.Add(mockTransaction.Object);
+                chainblock.Add(mockTransaction.Object);
+            }
+
+            mockTransaction = new Mock<ITransaction>();
+            mockTransaction.Setup(t => t.From).Returns("Dudi");
+            mockTransaction.Setup(t => t.Status).Returns(TransactionStatus.Successfull);
+            mockTransaction.Setup(t => t.Id).Returns(11);
+
+            expectedReturn.Add(mockTransaction.Object);
+            chainblock.Add(mockTransaction.Object);
+
+            mockTransaction = new Mock<ITransaction>();
+            mockTransaction.Setup(t => t.From).Returns("Shishi");
+            mockTransaction.Setup(t => t.Status).Returns(TransactionStatus.Aborted);
+            mockTransaction.Setup(t => t.Id).Returns(12);
+
+            expectedReturn.Add(mockTransaction.Object);
+            chainblock.Add(mockTransaction.Object);
+
+            IEnumerable<string> expectedResult = expectedReturn
+                .Select(t => t.From)
+                .ToList();
+            IEnumerable<string> actualResult = chainblock.GetAllSendersWithTransactionStatus(TransactionStatus.Successfull);
+
+            //Assert
+            Assert.AreNotEqual(expectedResult, actualResult);
+
         }
 
         [Test]
