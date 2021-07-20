@@ -239,35 +239,21 @@ namespace Chainblock.Tests
 
             for (int i = 0; i < 2; i++)
             {
-                mockTransaction = new Mock<ITransaction>();
+                ITransaction transaction = new Transaction(15, "Gogi", i, TransactionStatus.Successfull, "Suzi");
 
-                mockTransaction.Setup(t => t.From).Returns("Gogi");
-                mockTransaction.Setup(t => t.Status).Returns(TransactionStatus.Successfull);
-                mockTransaction.Setup(t => t.Id).Returns(i);
-
-                expectedReturn.Add(mockTransaction.Object);
-                chainblock.Add(mockTransaction.Object);
+                expectedReturn.Add(transaction);
+                chainblock.Add(transaction);
             }
 
-            mockTransaction = new Mock<ITransaction>();
-            mockTransaction.Setup(t => t.From).Returns("Dudi");
-            mockTransaction.Setup(t => t.Status).Returns(TransactionStatus.Successfull);
-            mockTransaction.Setup(t => t.Id).Returns(11);
+            ITransaction transactionWithDifferentStatus = new Transaction(15, "Pesho", 14, TransactionStatus.Aborted, "Suzi");
 
-            expectedReturn.Add(mockTransaction.Object);
-            chainblock.Add(mockTransaction.Object);
-
-            mockTransaction = new Mock<ITransaction>();
-            mockTransaction.Setup(t => t.From).Returns("Shishi");
-            mockTransaction.Setup(t => t.Status).Returns(TransactionStatus.Aborted);
-            mockTransaction.Setup(t => t.Id).Returns(12);
-
-            expectedReturn.Add(mockTransaction.Object);
-            chainblock.Add(mockTransaction.Object);
+            expectedReturn.Add(transactionWithDifferentStatus);
+            chainblock.Add(transactionWithDifferentStatus);
 
             IEnumerable<string> expectedResult = expectedReturn
                 .Select(t => t.From)
                 .ToList();
+
             IEnumerable<string> actualResult = chainblock.GetAllSendersWithTransactionStatus(TransactionStatus.Successfull);
 
             //Assert
