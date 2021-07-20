@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Chainblock.Contracts;
 
@@ -29,12 +30,14 @@ namespace Chainblock.Models
 
         public bool Contains(ITransaction tx)
         {
-            throw new NotImplementedException();
+            int id = tx.Id;
+
+            return Contains(id);
         }
 
         public bool Contains(int id)
         {
-            throw new NotImplementedException();
+            return transactions.Any(tr => tr.Id == id);
         }
 
         public IEnumerable<ITransaction> GetAllInAmountRange(double lo, double hi)
