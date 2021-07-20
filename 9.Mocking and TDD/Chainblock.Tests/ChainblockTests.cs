@@ -98,6 +98,12 @@ namespace Chainblock.Tests
         }
 
         [Test]
+        public void ChangeTrStatus_Should_ThrowException_When_IdNotContained()
+        {
+            Assert.Throws<ArgumentException>(() => chainblock.ChangeTransactionStatus(2, TransactionStatus.Aborted));
+        }
+
+        [Test]
         public void Contains_ShouldConfirm_Whether_GivenTransaction_IsFound_ByTransaction()
         {
             //Arrange
