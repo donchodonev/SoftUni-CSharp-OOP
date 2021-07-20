@@ -20,12 +20,20 @@ namespace Chainblock.Models
 
         public void Add(ITransaction tx)
         {
-            transactions.Add(tx);
+            if (!this.Contains(tx.Id))
+            {
+                transactions.Add(tx);
+            }
         }
 
         public void ChangeTransactionStatus(int id, TransactionStatus newStatus)
         {
-            throw new NotImplementedException();
+            if (!this.Contains(id))
+            {
+                throw new ArgumentException($"Chainblock doesn't contain a transaction with ID {id}");
+            }
+
+            transactions.Single(t => t.Id == id).Status = newStatus;
         }
 
         public bool Contains(ITransaction tx)

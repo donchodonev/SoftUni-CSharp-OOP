@@ -59,6 +59,24 @@ namespace Chainblock.Tests
             //Assert
             Assert.AreEqual(expectedTransactionAt0Index,actualTransaction);
         }
+        
+        [Test]
+        public void Add_Should_NotAddTransaction_Successfully_IfTransaction_IsNotUnique()
+        {
+            //Arrange
+            mockTransaction.Setup(id => id.Id)
+                .Returns(1);
+
+            chainblock.Add(mockTransaction.Object);
+            chainblock.Add(mockTransaction.Object);
+
+            //Act
+            int expectedTransactionsCount = 1;
+            int actualTransactionCount = chainblock.Count;
+
+            //Assert
+            Assert.AreEqual(expectedTransactionsCount,actualTransactionCount);
+        }
 
         [Test]
         public void ChangeTrStatus_Should_ChangeTrStatus_ForGiven_IdAndStatus()
