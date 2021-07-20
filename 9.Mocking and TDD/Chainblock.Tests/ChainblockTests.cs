@@ -83,14 +83,17 @@ namespace Chainblock.Tests
         public void ChangeTrStatus_Should_ChangeTrStatus_ForGiven_IdAndStatus()
         {
             //Arrange
-            mockTransaction.Setup(t => t.Status).Returns(TransactionStatus.Aborted);
+            mockTransaction.SetupProperty(p => p.Status);
+            chainblock.Add(mockTransaction.Object);
 
             //Act
-            chainblock.Add(mockTransaction.Object);
             chainblock.ChangeTransactionStatus(1, TransactionStatus.Successfull);
 
             TransactionStatus expectedStatus = TransactionStatus.Successfull;
             TransactionStatus actualStatus = chainblock[0].Status;
+
+            //Assert
+            Assert.AreEqual(expectedStatus,actualStatus);
         }
 
         [Test]
@@ -154,7 +157,6 @@ namespace Chainblock.Tests
         public void GetAllOrderedByAmountDescendingThenById_Should_Return_AllAmountOrdererAccordingly()
         {
             Assert.Fail();
-
         }
 
         [Test]
