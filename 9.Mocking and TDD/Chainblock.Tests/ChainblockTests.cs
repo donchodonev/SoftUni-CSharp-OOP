@@ -49,8 +49,15 @@ namespace Chainblock.Tests
         [Test]
         public void Add_Should_AddTransaction_Successfully()
         {
-            Assert.Fail();
+            //Arrange
+            chainblock.Add(mockTransaction.Object);
 
+            //Act
+            ITransaction expectedTransactionAt0Index = mockTransaction.Object;
+            ITransaction actualTransaction = chainblock[0];
+
+            //Assert
+            Assert.AreEqual(expectedTransactionAt0Index,actualTransaction);
         }
 
         [Test]

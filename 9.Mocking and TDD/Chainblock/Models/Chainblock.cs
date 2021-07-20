@@ -105,5 +105,11 @@ namespace Chainblock.Models
         {
             throw new NotImplementedException();
         }
+
+        public ITransaction this[int index]
+        {
+            get => transactions[index];
+            set => transactions[index] = value;
+        }
     }
 }
