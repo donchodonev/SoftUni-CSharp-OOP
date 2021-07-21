@@ -442,14 +442,17 @@ namespace Chainblock.Tests
             //Arrange
             ITransaction tr1 = new Transaction(5, "Gosho", 1, TransactionStatus.Successfull, "Pesho");
 
+            //Act
+            chainblock.Add(tr1);
+
             //Assert
             Assert
-                .That(() => chainblock.GetBySenderAndMinimumAmountDescending("Gosho", 1)
+                .That(() => chainblock.GetBySenderAndMinimumAmountDescending("Gosho", 6)
                     , Throws
                         .InvalidOperationException
                         .With
                         .Message
-                        .EqualTo("Sender doesn't exist"));
+                        .EqualTo("Zero transactions above given amount found"));
         }
 
         [Test]
