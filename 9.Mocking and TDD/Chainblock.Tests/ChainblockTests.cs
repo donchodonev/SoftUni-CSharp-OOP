@@ -481,6 +481,19 @@ namespace Chainblock.Tests
         }
 
         [Test]
+        public void GetBySenderOrderedByAmountDescending_Should_ThrowException_ForNonExistingSender()
+        {
+            //Arrange
+            ITransaction tr1 = new Transaction(1, "Gosho", 1, TransactionStatus.Successfull, "Pesho");
+
+            //Act
+            chainblock.Add(tr1);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => chainblock.GetBySenderOrderedByAmountDescending("Sasho"));
+        }
+
+        [Test]
         public void GetByTransactionStatusAndMaximumAmount_Should_ReturnCorrectTransactions()
         {
             //returns all transactions with given status and amount less or
