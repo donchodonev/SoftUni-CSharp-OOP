@@ -309,7 +309,33 @@ namespace Chainblock.Tests
         [Test]
         public void GetByReceiverAndAmountRange_ShouldReturn_CollectionOfTransactions_Between_GivenRanges()
         {
-            Assert.Fail();
+            //Arrange
+            Transaction tr1 = new Transaction(4, "Gosho", 1, TransactionStatus.Successfull, "Pesho");
+            Transaction tr2 = new Transaction(7, "Gosho", 2, TransactionStatus.Successfull, "Pesho");
+            Transaction tr4 = new Transaction(7, "Gosho", 4, TransactionStatus.Successfull, "Pesho");
+            Transaction tr3 = new Transaction(10, "Gosho", 3, TransactionStatus.Successfull, "Pesho");
+            Transaction tr5 = new Transaction(10, "Gosho", 5, TransactionStatus.Successfull, "Sisi");
+
+            //note the order
+            chainblock.Add(tr2);
+            chainblock.Add(tr4);
+            chainblock.Add(tr1);
+            chainblock.Add(tr3);
+
+            string receiver = "Pesho";
+
+            //Act
+            List<ITransaction> expectedResult = new List<ITransaction>()
+            {
+                //note the order
+                tr2,tr4,tr1
+            };
+
+            List<ITransaction> actualResult = chainblock.GetByReceiverAndAmountRange(receiver, 4d, 8d)
+                .ToList();
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
         [Test]

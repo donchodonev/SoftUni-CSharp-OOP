@@ -100,7 +100,30 @@ namespace Chainblock.Models
 
         public IEnumerable<ITransaction> GetByReceiverAndAmountRange(string receiver, double lo, double hi)
         {
-            throw new NotImplementedException();
+            int countOfTrForReceiver = transactions
+                .Where(t => t.To == receiver)
+                .Count();
+
+            int countOfTrForReceiverInRange = transactions
+                .Where(t => t.To == receiver)
+                .Where(t => t.Amount >= lo && t.Amount < hi)
+                .Count();
+
+            if (countOfTrForReceiver == 0)
+            {
+                throw new InvalidOperationException("There are 0 transactions related to the receiver");
+            }
+
+            if (countOfTrForReceiverInRange == 0)
+            {
+                throw new InvalidOperationException("There are 0 transactions in the given range related to the receiver");
+            }
+
+            return transactions
+                .Where(t => t.To == receiver)
+                .Where(t => t.Amount >= lo && t.Amount < hi)
+                .OrderByDescending(t => t.Amount)
+                .ThenBy(t => t.Id);
         }
 
         public IEnumerable<ITransaction> GetByReceiverOrderedByAmountThenById(string receiver)
