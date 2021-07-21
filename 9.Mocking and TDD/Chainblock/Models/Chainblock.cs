@@ -176,7 +176,18 @@ namespace Chainblock.Models
 
         public IEnumerable<ITransaction> GetByTransactionStatus(TransactionStatus status)
         {
-            throw new NotImplementedException();
+            int countOfTrWithTrStatusGiven = transactions
+                .Where(t => t.Status == status)
+                .Count();
+
+            if (countOfTrWithTrStatusGiven == 0)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return transactions
+                .Where(t => t.Status == status)
+                .OrderByDescending(t => t.Status);
         }
 
         public IEnumerable<ITransaction> GetByTransactionStatusAndMaximumAmount(TransactionStatus status, double amount)

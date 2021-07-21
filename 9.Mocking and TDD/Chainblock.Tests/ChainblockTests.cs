@@ -494,6 +494,31 @@ namespace Chainblock.Tests
         }
 
         [Test]
+        public void GetByTransactionStatus_Should_ReturnAccordingly()
+        {
+            //Arrange
+            ITransaction tr1 = new Transaction(1, "Gosho", 1, TransactionStatus.Successfull, "Pesho");
+            ITransaction tr2 = new Transaction(2, "Gosho", 2, TransactionStatus.Aborted, "Atanas");
+            ITransaction tr3 = new Transaction(3, "Gosho", 3, TransactionStatus.Failed, "Mikelanjelo");
+
+            //Act
+            chainblock.Add(tr1);
+            chainblock.Add(tr2);
+            chainblock.Add(tr3);
+
+            List<ITransaction> expectedResult = new List<ITransaction>()
+            {
+                tr1
+            };
+
+            List<ITransaction> actualResult = chainblock.GetByTransactionStatus(TransactionStatus.Successfull)
+                .ToList();
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        [Test]
         public void GetByTransactionStatusAndMaximumAmount_Should_ReturnCorrectTransactions()
         {
             //returns all transactions with given status and amount less or
