@@ -49,7 +49,6 @@ namespace Chainblock.Tests
 
             //Assert
             Assert.AreEqual(expectedCount, actualCount);
-
         }
 
         [Test]
@@ -69,7 +68,6 @@ namespace Chainblock.Tests
         [Test]
         public void Add_Should_NotAddTransaction_Successfully_IfTransaction_IsNotUnique()
         {
-
             chainblock.Add(mockTransaction.Object);
             chainblock.Add(mockTransaction.Object);
 
@@ -127,7 +125,6 @@ namespace Chainblock.Tests
             bool actualResult = chainblock.Contains(id);
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
-
         }
 
         [Test]
@@ -192,6 +189,7 @@ namespace Chainblock.Tests
             //Assert
             Assert.AreEqual(expectedTransactionsList, chainblock.GetAllOrderedByAmountDescendingThenById());
         }
+
         [Test]
         public void GetAllOrderedByAmountDescending_ThenById_Should_Return_AllTransactions_OrdererAccordingly()
         {
@@ -228,11 +226,10 @@ namespace Chainblock.Tests
         public void GetAllReceiversByStatus_Should_Return_ReceiversName_By_Given_TrStatus()
         {
             Assert.Fail();
-
         }
 
         [Test]
-        public void GetAllSendersByStatus_Should_Return_ReceiversName_By_Given_TrStatus()
+        public void GetAllSendersByStatus_Should_Return_SenderName_By_Given_TrStatus()
         {
             //Arrange
             List<ITransaction> expectedReturn = new List<ITransaction>();
@@ -258,7 +255,6 @@ namespace Chainblock.Tests
 
             //Assert
             Assert.AreNotEqual(expectedResult, actualResult);
-
         }
 
         [Test]
