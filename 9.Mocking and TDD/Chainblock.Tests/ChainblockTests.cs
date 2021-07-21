@@ -630,5 +630,15 @@ namespace Chainblock.Tests
             //Assert
             Assert.AreNotEqual(countBeforeRemoval, countAfterRemoval);
         }
+
+        [Test]
+        public void RemoveTrByID_Should_ThrowException_ForNonExistingTrId()
+        {
+            //Act
+            chainblock.Add(mockTransaction.Object);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => chainblock.RemoveTransactionById(2));
+        }
     }
 }
