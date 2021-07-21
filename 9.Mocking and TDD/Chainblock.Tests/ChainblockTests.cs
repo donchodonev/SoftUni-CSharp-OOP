@@ -225,7 +225,30 @@ namespace Chainblock.Tests
         [Test]
         public void GetAllReceiversByStatus_Should_Return_ReceiversName_By_Given_TrStatus()
         {
-            Assert.Fail();
+            //Arrange
+            List<ITransaction> expectedReturn = new List<ITransaction>();
+
+            for (int i = 0; i < 2; i++)
+            {
+                ITransaction transaction = new Transaction(15, "Suzi", i, TransactionStatus.Successfull, "Gogi");
+
+                expectedReturn.Add(transaction);
+                chainblock.Add(transaction);
+            }
+
+            ITransaction transactionWithDifferentStatus = new Transaction(15, "Suzi", 14, TransactionStatus.Aborted, "Pesho");
+
+            expectedReturn.Add(transactionWithDifferentStatus);
+            chainblock.Add(transactionWithDifferentStatus);
+
+            IEnumerable<string> expectedResult = expectedReturn
+                .Select(t => t.To)
+                .ToList();
+
+            IEnumerable<string> actualResult = chainblock.GetAllSendersWithTransactionStatus(TransactionStatus.Successfull);
+
+            //Assert
+            Assert.AreNotEqual(expectedResult, actualResult);
         }
 
         [Test]
