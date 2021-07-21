@@ -143,7 +143,23 @@ namespace Chainblock.Models
 
         public IEnumerable<ITransaction> GetBySenderAndMinimumAmountDescending(string sender, double amount)
         {
-            throw new NotImplementedException();
+            if (!SenderExists(sender))
+            {
+                throw new InvalidOperationException("Sender doesn't exist");
+            }
+
+            int transactionsAboveAmount = transactions.Where(t => t.Amount > amount)
+                .Count();
+
+            if (transactionsAboveAmount == 0)
+            {
+                throw new InvalidOperationException("Zero transactions above given amount found");
+            }
+
+            return transactions
+                .Where(t => t.From == sender)
+                .Where(t => t.Amount > amount)
+                .OrderByDescending(t => t.Amount);
         }
 
         public IEnumerable<ITransaction> GetBySenderOrderedByAmountDescending(string sender)

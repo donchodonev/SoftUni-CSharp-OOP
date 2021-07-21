@@ -395,7 +395,26 @@ namespace Chainblock.Tests
         [Test]
         public void GetBySenderAndMinimumAmountDescending_ShouldReturnTransactions_Ordered()
         {
-            Assert.Fail();
+            //Arrange
+            ITransaction tr1 = new Transaction(1, "Gosho", 1, TransactionStatus.Successfull, "Pesho");
+            ITransaction tr2 = new Transaction(2, "Gosho", 2, TransactionStatus.Aborted, "Pesho");
+            ITransaction tr3 = new Transaction(3, "Gosho", 3, TransactionStatus.Failed, "Pesho");
+
+            chainblock.Add(tr1);
+            chainblock.Add(tr2);
+            chainblock.Add(tr3);
+
+            //Act
+            List<ITransaction> expectedResult = new List<ITransaction>()
+            {
+                tr3,tr2
+            };
+
+            List<ITransaction> actualResult = chainblock.GetBySenderAndMinimumAmountDescending("Gosho", 1)
+                .ToList();
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
         [Test]
