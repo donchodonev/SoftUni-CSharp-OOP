@@ -109,7 +109,7 @@ namespace Chainblock.Models
                 .Where(t => t.Amount >= lo && t.Amount < hi)
                 .Count();
 
-            if (countOfTrForReceiver == 0)
+            if (!ReceiverExists(receiver))
             {
                 throw new InvalidOperationException("There are 0 transactions related to the receiver");
             }
@@ -131,7 +131,7 @@ namespace Chainblock.Models
             int countOfTrForReceiver = transactions.Where(t => t.To == receiver)
                 .Count();
 
-            if (countOfTrForReceiver == 0)
+            if (!ReceiverExists(receiver))
             {
                 throw new InvalidOperationException("There are 0 transactions related to the receiver");
             }
@@ -175,6 +175,34 @@ namespace Chainblock.Models
         public void RemoveTransactionById(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public bool ReceiverExists(string receiver)
+        {
+            int countOfTrForReceiver = transactions
+                .Where(t => t.To == receiver)
+                .Count();
+
+            if (countOfTrForReceiver > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool SenderExists(string receiver)
+        {
+            int countOfTrForSender = transactions
+                .Where(t => t.From == receiver)
+                .Count();
+
+            if (countOfTrForSender > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
