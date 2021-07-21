@@ -387,6 +387,17 @@ namespace Chainblock.Tests
         }
 
         [Test]
+        public void GetByReceiverOrderedByAmountThenById_Should_ThrowException_ForInvalidReceiver()
+        {
+            //Arrange
+            Transaction tr1 = new Transaction(1, "Gosho", 6, TransactionStatus.Successfull, "Shishi");
+            chainblock.Add(tr1);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => chainblock.GetByReceiverOrderedByAmountThenById("Goshko"));
+        }
+
+        [Test]
         public void GetBySenderAndMinimumAmountDescending_ShouldReturnTransactions_Ordered()
         {
             Assert.Fail();
