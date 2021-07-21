@@ -613,5 +613,22 @@ namespace Chainblock.Tests
             //Assert
             Assert.AreEqual(chainblock, newChainblock);
         }
+
+        [Test]
+        public void RemoveTrByID_Should_RemoveTr_FromChainblock()
+        {
+            //Act
+            chainblock.Add(mockTransaction.Object);
+
+            int countBeforeRemoval = chainblock.Count;
+
+            //mockTransaction returns and ID of 1
+            chainblock.RemoveTransactionById(1);
+
+            int countAfterRemoval = chainblock.Count;
+
+            //Assert
+            Assert.AreNotEqual(countBeforeRemoval, countAfterRemoval);
+        }
     }
 }

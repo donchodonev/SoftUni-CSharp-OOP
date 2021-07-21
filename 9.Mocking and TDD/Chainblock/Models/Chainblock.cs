@@ -218,7 +218,14 @@ namespace Chainblock.Models
 
         public void RemoveTransactionById(int id)
         {
-            throw new NotImplementedException();
+            bool trExists = transactions.Any(tr => tr.Id == id);
+
+            if (!trExists)
+            {
+                throw new InvalidOperationException();
+            }
+
+            transactions.Remove(transactions.Single(t => t.Id == id));
         }
 
         public bool ReceiverExists(string receiver)
