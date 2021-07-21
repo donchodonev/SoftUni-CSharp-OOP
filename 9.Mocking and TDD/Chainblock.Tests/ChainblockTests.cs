@@ -536,10 +536,30 @@ namespace Chainblock.Tests
         [Test]
         public void GetByTransactionStatusAndMaximumAmount_Should_ReturnCorrectTransactions()
         {
-            //returns all transactions with given status and amount less or
-            //equal to a maximum allowed amount ordered by amount descending.
-            //Returns an empty collection if no such transactions were found
-            Assert.Fail();
+            //Arrange
+            TransactionStatus ts = TransactionStatus.Successfull;
+
+            ITransaction tr1 = new Transaction(13, "Gosho", 1, ts, "Pesho");
+            ITransaction tr2 = new Transaction(22, "Gosho", 2, ts, "Atanas");
+            ITransaction tr3 = new Transaction(33, "Gosho", 3, ts, "Mikelanjelo");
+            ITransaction tr4 = new Transaction(15, "Gosho", 4, TransactionStatus.Aborted, "Mikelanjelo");
+
+            //Act
+            chainblock.Add(tr1);
+            chainblock.Add(tr2);
+            chainblock.Add(tr3);
+            chainblock.Add(tr4);
+
+            List<ITransaction> expectedResult = new List<ITransaction>()
+            {
+                tr3,tr2, tr1
+            };
+
+            List<ITransaction> actualResult = chainblock.GetByTransactionStatusAndMaximumAmount(ts, 33d)
+                .ToList();
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
         [Test]

@@ -192,7 +192,15 @@ namespace Chainblock.Models
 
         public IEnumerable<ITransaction> GetByTransactionStatusAndMaximumAmount(TransactionStatus status, double amount)
         {
-            throw new NotImplementedException();
+            List<ITransaction> transactionsToReturn = new List<ITransaction>();
+
+            transactionsToReturn = transactions
+                .Where(t => t.Status == status)
+                .Where(t => t.Amount <= amount)
+                .OrderByDescending(t => t.Amount)
+                .ToList();
+
+            return transactionsToReturn;
         }
 
         public IEnumerator<ITransaction> GetEnumerator()
