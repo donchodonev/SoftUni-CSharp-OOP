@@ -164,7 +164,14 @@ namespace Chainblock.Models
 
         public IEnumerable<ITransaction> GetBySenderOrderedByAmountDescending(string sender)
         {
-            throw new NotImplementedException();
+            if (!SenderExists(sender))
+            {
+                throw new InvalidOperationException();
+            }
+
+            return transactions
+                .Where(t => t.From == sender)
+                .OrderByDescending(t => t.Amount);
         }
 
         public IEnumerable<ITransaction> GetByTransactionStatus(TransactionStatus status)
