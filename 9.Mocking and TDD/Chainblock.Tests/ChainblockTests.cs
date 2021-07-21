@@ -418,6 +418,22 @@ namespace Chainblock.Tests
         }
 
         [Test]
+        public void GetBySenderAndMinimumAmountDescending_Should_ThrowException_ForInvalidSender()
+        {
+            //Arrange
+            ITransaction tr1 = new Transaction(5, "Gosho", 1, TransactionStatus.Successfull, "Pesho");
+
+            //Assert
+            Assert
+                .That(() => chainblock.GetBySenderAndMinimumAmountDescending("Gosho", 1)
+                    , Throws
+                        .InvalidOperationException
+                        .With
+                        .Message
+                        .EqualTo("Sender doesn't exist"));
+        }
+
+        [Test]
         public void GetBySenderOrderedByAmountDescending_Should_ReturnTransactions_Orderer()
         {
             Assert.Fail();
