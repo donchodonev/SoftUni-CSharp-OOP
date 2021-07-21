@@ -205,7 +205,10 @@ namespace Chainblock.Models
 
         public IEnumerator<ITransaction> GetEnumerator()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < transactions.Count; i++)
+            {
+                yield return transactions[i];
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

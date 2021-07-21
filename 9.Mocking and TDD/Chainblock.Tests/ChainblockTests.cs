@@ -5,6 +5,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Chainblock = Chainblock.Models.Chainblock;
 
 namespace Chainblock.Tests
 {
@@ -588,7 +589,29 @@ namespace Chainblock.Tests
         [Test]
         public void GetEnumerator_Should_Allow_CollectionToBeForEached()
         {
-            Assert.Fail();
+            //Arrange
+            TransactionStatus ts = TransactionStatus.Unauthorized;
+
+            ITransaction tr1 = new Transaction(13, "Gosho", 1, ts, "Pesho");
+            ITransaction tr2 = new Transaction(22, "Gosho", 2, ts, "Atanas");
+            ITransaction tr3 = new Transaction(33, "Gosho", 3, ts, "Mikelanjelo");
+            ITransaction tr4 = new Transaction(15, "Gosho", 4, TransactionStatus.Aborted, "Mikelanjelo");
+
+            //Act
+            chainblock.Add(tr1);
+            chainblock.Add(tr2);
+            chainblock.Add(tr3);
+            chainblock.Add(tr4);
+
+            Models.Chainblock newChainblock = new Models.Chainblock();
+
+            foreach (var transaction in chainblock)
+            {
+                newChainblock.Add(transaction);
+            }
+
+            //Assert
+            Assert.AreEqual(chainblock, newChainblock);
         }
     }
 }
