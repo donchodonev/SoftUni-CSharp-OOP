@@ -283,7 +283,14 @@ namespace Chainblock.Tests
         [Test]
         public void GetById_ShouldReturn_Transaction_WithGivenID()
         {
-            Assert.Fail();
+            //Arrange
+            mockTransaction.Setup(t => t.Id).Returns(1);
+
+            //Act
+            chainblock.Add(mockTransaction.Object);
+
+            //Assert
+            Assert.That(() => chainblock.GetById(1), Is.EqualTo(mockTransaction.Object));
         }
 
         [Test]

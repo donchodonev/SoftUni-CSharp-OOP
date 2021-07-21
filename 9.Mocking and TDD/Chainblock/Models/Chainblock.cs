@@ -18,6 +18,12 @@ namespace Chainblock.Models
 
         public int Count => transactions.Count;
 
+        public ITransaction this[int index]
+        {
+            get => transactions[index];
+            set => transactions[index] = value;
+        }
+
         public void Add(ITransaction tx)
         {
             if (!this.Contains(tx.Id))
@@ -59,12 +65,12 @@ namespace Chainblock.Models
                 transactionsToReturn.Add(transaction);
             }
 
-            return (IEnumerable<ITransaction>) transactionsToReturn;
+            return (IEnumerable<ITransaction>)transactionsToReturn;
         }
 
         public IEnumerable<ITransaction> GetAllOrderedByAmountDescendingThenById()
         {
-            return (IEnumerable<ITransaction>) transactions
+            return (IEnumerable<ITransaction>)transactions
                 .OrderByDescending(t => t.Amount)
                 .ThenBy(t => t.Id);
         }
@@ -84,7 +90,12 @@ namespace Chainblock.Models
 
         public ITransaction GetById(int id)
         {
-            throw new NotImplementedException();
+            if (!Contains(id))
+            {
+                throw new ArgumentException("Transaction with this ID doesn't exist");
+            }
+
+            return transactions.Single(t => t.Id == id);
         }
 
         public IEnumerable<ITransaction> GetByReceiverAndAmountRange(string receiver, double lo, double hi)
@@ -126,15 +137,10 @@ namespace Chainblock.Models
         {
             return GetEnumerator();
         }
+
         public void RemoveTransactionById(int id)
         {
             throw new NotImplementedException();
-        }
-
-        public ITransaction this[int index]
-        {
-            get => transactions[index];
-            set => transactions[index] = value;
         }
     }
 }
