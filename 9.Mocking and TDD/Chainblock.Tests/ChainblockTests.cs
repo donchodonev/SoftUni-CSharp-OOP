@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using Chainblock.Contracts;
+using Chainblock.Models;
+using Moq;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NUnit;
-using Moq;
-using Chainblock.Contracts;
-using Chainblock;
-using Chainblock.Models;
-using NUnit.Framework;
-using Chainblock = Chainblock.Models.Chainblock;
 
 namespace Chainblock.Tests
 {

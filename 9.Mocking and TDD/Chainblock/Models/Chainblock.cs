@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Chainblock.Contracts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Chainblock.Contracts;
 
 namespace Chainblock.Models
 {
