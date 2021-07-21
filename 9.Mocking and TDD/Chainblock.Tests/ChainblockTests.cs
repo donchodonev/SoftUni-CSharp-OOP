@@ -519,6 +519,21 @@ namespace Chainblock.Tests
         }
 
         [Test]
+        public void GetByTransactionStatus_Should_ThrowException_ForMissingTr()
+        {
+            //Arrange
+            ITransaction tr1 = new Transaction(1, "Gosho", 1, TransactionStatus.Successfull, "Pesho");
+            ITransaction tr2 = new Transaction(2, "Gosho", 2, TransactionStatus.Aborted, "Atanas");
+
+            //Act
+            chainblock.Add(tr1);
+            chainblock.Add(tr2);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => chainblock.GetByTransactionStatus(TransactionStatus.Failed));
+        }
+
+        [Test]
         public void GetByTransactionStatusAndMaximumAmount_Should_ReturnCorrectTransactions()
         {
             //returns all transactions with given status and amount less or
