@@ -294,6 +294,19 @@ namespace Chainblock.Tests
         }
 
         [Test]
+        public void GetById_Should_ThrowException_When_Transaction_IsMissing()
+        {
+            //Arrange
+            mockTransaction.Setup(t => t.Id).Returns(1);
+
+            //Act
+            //chainblock.Add(mockTransaction.Object);
+
+            //Assert
+            Assert.That(() => chainblock.GetById(1), Throws.ArgumentException);
+        }
+
+        [Test]
         public void GetByReceiverAndAmountRange_ShouldReturn_CollectionOfTransactions_Between_GivenRanges()
         {
             Assert.Fail();
