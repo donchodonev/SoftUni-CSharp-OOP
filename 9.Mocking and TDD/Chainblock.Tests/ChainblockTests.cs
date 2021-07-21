@@ -350,6 +350,18 @@ namespace Chainblock.Tests
         }
 
         [Test]
+        public void GetByReceiverAndAmountRange_Should_ThrowException_With_ValidReceiver_But_InvalidRange()
+        {
+            //Arrange
+            mockTransaction.Setup(t => t.To).Returns("Georgi");
+            mockTransaction.Setup(t => t.Amount).Returns(15);
+            chainblock.Add(mockTransaction.Object);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => chainblock.GetByReceiverAndAmountRange("Georgi", 16, 10000));
+        }
+
+        [Test]
         public void GetByReceiverOrderedByAmountThenById_ShouldReturn_Transactions_ForName_Orderer()
         {
             Assert.Fail();
