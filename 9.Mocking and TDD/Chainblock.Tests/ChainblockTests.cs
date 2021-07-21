@@ -364,7 +364,26 @@ namespace Chainblock.Tests
         [Test]
         public void GetByReceiverOrderedByAmountThenById_ShouldReturn_Transactions_ForName_Orderer()
         {
-            Assert.Fail();
+            //Arrange
+            Transaction tr1 = new Transaction(1, "Gosho", 6, TransactionStatus.Successfull, "Shishi");
+            Transaction tr2 = new Transaction(1, "Gosho", 4, TransactionStatus.Successfull, "Shishi");
+            Transaction tr3 = new Transaction(3, "Gosho", 5, TransactionStatus.Successfull, "Shishi");
+
+            chainblock.Add(tr1);
+            chainblock.Add(tr2);
+            chainblock.Add(tr3);
+
+            //Act
+            List<ITransaction> expectedResult = new List<ITransaction>()
+            {
+                tr3, tr2, tr1
+            };
+
+            List<ITransaction> actualResult = chainblock.GetByReceiverOrderedByAmountThenById("Shishi")
+                .ToList();
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
         [Test]

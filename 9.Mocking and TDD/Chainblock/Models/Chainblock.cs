@@ -128,7 +128,18 @@ namespace Chainblock.Models
 
         public IEnumerable<ITransaction> GetByReceiverOrderedByAmountThenById(string receiver)
         {
-            throw new NotImplementedException();
+            int countOfTrForReceiver = transactions.Where(t => t.To == receiver)
+                .Count();
+
+            if (countOfTrForReceiver == 0)
+            {
+                throw new InvalidOperationException("There are 0 transactions related to the receiver");
+            }
+
+            return transactions
+                .Where(t => t.To == receiver)
+                .OrderByDescending(t => t.Amount)
+                .ThenBy(t => t.Id);
         }
 
         public IEnumerable<ITransaction> GetBySenderAndMinimumAmountDescending(string sender, double amount)
