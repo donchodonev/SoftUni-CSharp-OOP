@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prototype Pattern", "Prototype Pattern\Prototype Pattern.csproj", "{4CF4E363-396F-4CC0-B6ED-1B9B3D5522D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandwichMenu", "SandwichMenu\SandwichMenu.csproj", "{5DB63022-FB56-4176-8C71-D34EAC3FD722}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CF4E363-396F-4CC0-B6ED-1B9B3D5522D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CF4E363-396F-4CC0-B6ED-1B9B3D5522D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CF4E363-396F-4CC0-B6ED-1B9B3D5522D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CF4E363-396F-4CC0-B6ED-1B9B3D5522D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DB63022-FB56-4176-8C71-D34EAC3FD722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB63022-FB56-4176-8C71-D34EAC3FD722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB63022-FB56-4176-8C71-D34EAC3FD722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB63022-FB56-4176-8C71-D34EAC3FD722}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B63412A3-9824-4D9F-BA0A-F4EEF13D7614}
+	EndGlobalSection
+EndGlobal
