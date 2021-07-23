@@ -6,7 +6,11 @@ namespace Template_Method_Pattern
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            AbstractBread bread1 = new ConcreteBread();
+            AbstractBread bread2 = new ConcreteBreadTwo();
+
+            bread1.Make();
+            bread2.Make();
         }
     }
 }
